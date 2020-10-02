@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="mvc" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,20 +23,29 @@
                         <mvc:form modelAttribute="users" action="${pageContext.request.contextPath}/register" method="post" class="register-form" id="register-form" onsubmit ="return validateForm()" >
                             <div class="form-group">
                                 <label for="username"><i class="glyphicon glyphicon-user"></i></label>
-                                    <mvc:input type="text" name="username" path="username" id="username" placeholder="User Name"/>
+                                    <mvc:input type="text" name="username" path="username" id="username" placeholder="User Name" cssErrorClass="formFieldError" />
+                                    <mvc:errors path="username" />
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="glyphicon glyphicon-envelope"></i></label>
-                                    <mvc:input type="text" name="email" path="email" id="email" placeholder="Your Email"/>
+                                    <mvc:input type="text" name="email" path="email" id="email" placeholder="Your Email" cssErrorClass="formFieldError" />
+                                    <mvc:errors path="email" />
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="glyphicon glyphicon-lock"></i></label>
-                                    <mvc:input type="password" name="password" path="password" id="password" placeholder="Your password" />
+                                    <mvc:input type="password" name="password" path="password" id="password" placeholder="Your password" cssErrorClass="formFieldError" />
+                                    <mvc:errors path="password" />
                             </div>
                             <div class="form-group">
                                 <label for="passwordConfirm"><i class="glyphicon glyphicon-repeat"></i></label>
-                                    <mvc:input type="password" name="passwordConfirm" path="passwordConfirm" id="passwordConfirm" placeholder="Repeat your password"/>
-                            </div>      
+                                    <mvc:input type="password" name="passwordConfirm" path="passwordConfirm" id="passwordConfirm" placeholder="Repeat your password" cssErrorClass="formFieldError" />
+                                    <mvc:errors path="passwordConfirm" />
+                            </div>    
+                            <c:if test="${users.getPassword() != users.getPasswordConfirm()}">
+                                <div class="form-group">
+                                    <p style="color: red;">Password confimn incorrect, please try again!</p>    
+                                </div>
+                            </c:if>
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
                                 <a href="<c:url value="/" />" id="signup" class="form-submit">Cancel</a>

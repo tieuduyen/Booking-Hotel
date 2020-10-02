@@ -36,7 +36,7 @@
                                 <div class="user_box_register user_box_link"><a href="${pageContext.request.contextPath}/register">register</a></div>
                             </div>
                             <div class="user_box ml-auto">
-                                <div class="user_box_login user_box_link"><a href="#">${users.username}.</a></div>
+                                <div class="user_box_login user_box_link"><a href="#">${users.email}.</a></div>
                                 <div class="user_box_register user_box_link"><a href="<c:url value="/logout" />">logout</a></div>
                             </div>
                         </div>

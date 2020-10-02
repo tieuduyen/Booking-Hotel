@@ -3,28 +3,43 @@ package entity;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import repository.UsersRepository;
 
 @Entity
 @Table(name = "users")
+@Scope("session")
 public class UsersEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
     private int id;
 
     @Column(name = "Email")
+    @Email
     private String email;
 
     @Column(name = "Name")
@@ -45,15 +60,23 @@ public class UsersEntity implements Serializable {
 
     @Transient
     private String passwordConfirm;
-    
+
     @Column(name = "username")
+    @Size(min = 3, max = 20)
     private String username;
 
     @Column(name = "enabled")
     private boolean enabled;
     
-    @Column(name = "Role")
-    private String role;
+    /*
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinTable(name = "acc_role_relationship",
+               joinColumns = @JoinColumn(name = "acc_id",
+               referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(
+               name = "acc_role_id",
+               referencedColumnName = "id"))
+    private Set<UserRoleEntity> userRoles;*/
 
     //Implement relationships with CreditCard 1-1
     @OneToOne(mappedBy = "users")
@@ -65,11 +88,11 @@ public class UsersEntity implements Serializable {
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
     List<CommentEntity> comment;
-    
+
     public UsersEntity() {
 
     }
-    
+
     public UsersEntity(int id, String email, String name, String phone, String sex, LocalDate birthdate, String password, String passwordConfirm, String username, boolean enabled, String role, CreditCardEntity creditCard, List<BookingEntity> bookingList, List<CommentEntity> comment) {
         this.id = id;
         this.email = email;
@@ -81,7 +104,6 @@ public class UsersEntity implements Serializable {
         this.passwordConfirm = passwordConfirm;
         this.username = username;
         this.enabled = enabled;
-        this.role = role;
         this.creditCard = creditCard;
         this.bookingList = bookingList;
         this.comment = comment;
@@ -191,17 +213,10 @@ public class UsersEntity implements Serializable {
         this.comment = comment;
     }
 
-    public String getRole() {
-        return role;
-    }
 
-    public void setRole(String role) {
-        this.role = role;
-    }   
-    
     public String getBirthDateFormatted() {
         DateTimeFormatter birthDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return birthDateFormat.format(birthdate);
-    }
-    
+    } 
+
 }

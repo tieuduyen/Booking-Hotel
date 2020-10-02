@@ -97,11 +97,13 @@ public class HotelController {
     // List TypeRoom By Hotel
     @RequestMapping(value = "/hotel/{name}", method = RequestMethod.GET)
     public String showRoomTypeByHotel(@PathVariable(value = "name") String name, Model model) {
+        
         HotelEntity hotel = hotelRepo.findByName(name);
-        //List<RoomTypeEntity> roomTypeList = (List<RoomTypeEntity>) roomTypeRepo.findRoomTypeByName(name);
         List<RoomEntity> roomList = (List<RoomEntity>) roomRepo.findRoomTypeByName(name);
+        
         model.addAttribute("roomList", roomList);
-        model.addAttribute("hotel", hotel);;
+        model.addAttribute("hotel", hotel);
+        
         return "viewpage/view-room-by-hotel";
     }
 
@@ -112,6 +114,7 @@ public class HotelController {
         RoomTypeEntity roomType = roomTypeRepo.findRoomDetailsByName(name);
 
         model.addAttribute("roomType", roomType);
+        
         return "viewpage/view-room-details";
     }
 
@@ -119,10 +122,13 @@ public class HotelController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchCity(@RequestParam(name = "searchText") int cityID, @RequestParam(name = "checkIn") Date checkInDate,
             @RequestParam(name = "checkOut") Date checkOutDate, @RequestParam(name = "rooms") int rooms, Model model) {
+        
         LocalDate checkIn = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(checkInDate));
         LocalDate checkOut = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(checkOutDate));
+        
         List<HotelEntity> hotelList = (List<HotelEntity>) hotelRepo.findHotleInCity(cityID);
         List<HotelEntity> availableHotel = new ArrayList<>();
+        
         for (HotelEntity h : hotelList) {
             int numberRoomOfHotel = roomTypeRepo.getNumberOfRoomOfHotel(h.getId());
             int numberOfRoomUsing = roomRepo.getNumberOfRoomUsing(h.getId(), checkIn, checkOut);
@@ -130,6 +136,7 @@ public class HotelController {
                 availableHotel.add(h);
             }
         }
+        
         CityEntity city = cityRepo.findById(cityID);
 
         model.addAttribute("availableHotel", availableHotel);

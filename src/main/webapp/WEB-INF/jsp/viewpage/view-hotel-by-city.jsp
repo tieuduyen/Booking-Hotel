@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="<c:url value="/resources/styles/offers_styles.css" />">
         <link rel="stylesheet" href="<c:url value="/resources/styles/offers_responsive.css" />">
     </head>
-<jsp:include page="../homepage/header.jsp" />
+    <jsp:include page="../homepage/header.jsp" />
     <body>
         <div class="home">
             <c:catch var="hotel">
@@ -38,7 +38,7 @@
                                         <c:catch var="hotel">
                                             <li class="sort_btn" data-isotope-option='{ "sortBy": "original-order" }'><span><a href="${pageContext.request.contextPath}/sort-by-evaluate-low-to-high/${city.name}">Evaluate: Thấp đến Cao</a></span></li>
                                             <li class="sort_btn" data-isotope-option='{ "sortBy": "name" }'><span><a href="${pageContext.request.contextPath}/sort-by-evaluate-high-to-low/${city.name}">Evaluate: Cao đến Thấp</a></span></li>
-                                        </c:catch>
+                                                    </c:catch>
                                     </ul>
                                 </li>
                                 <li>
@@ -121,5 +121,5 @@
             </div>		
         </div>
     </body>
-<jsp:include page="../homepage/footer.jsp" />
+    <jsp:include page="../homepage/footer.jsp" />
 </html>

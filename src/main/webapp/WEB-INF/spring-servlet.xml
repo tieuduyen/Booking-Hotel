@@ -9,7 +9,7 @@
 ">
 
     <context:annotation-config />
-    <context:component-scan base-package="config,repository,controller,component" />
+    <context:component-scan base-package="config,repository,controller,component,service" />
  
     <context:component-scan base-package="com.howtodoinjava" />    
      
@@ -33,10 +33,10 @@
         <property name="from" value="hotelbookingweb123@gmail.com"></property>
     </bean>
            
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="message" />
-	</bean>    
+    <bean id="messageSource"
+          class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="message" />
+    </bean>    
       
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />
