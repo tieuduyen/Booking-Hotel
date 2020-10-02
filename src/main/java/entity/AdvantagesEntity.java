@@ -25,6 +25,9 @@ public class AdvantagesEntity {
     }
 
     //aa
+    //bb
+    //cc
+    //dd
     public int getId() {
         return id;
     }
