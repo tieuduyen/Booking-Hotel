@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,9 +25,6 @@ public class BookingDetailsEntity {
     @Column(name = "NumberOfPeople")
     private int numberOfPeople;
     
-    @Column(name = "NumberOfRooms")
-    private int numberOfRoom;
-    
     @Column(name = "Price")
     private Double price;
     
@@ -38,7 +34,7 @@ public class BookingDetailsEntity {
     @Column(name = "CheckOutDate")
     private LocalDate checkOutDate;
     
-    // n-1 voi bang Rate
+    // n-1 voi bang Booking
     @ManyToOne
     @JoinColumn(name = "BookingID")//khóa ngoại 
     private BookingEntity booking;
@@ -47,9 +43,12 @@ public class BookingDetailsEntity {
     @OneToMany(mappedBy = "bookingDetails",fetch = FetchType.LAZY)
     List<ServiceDetailsEntity> serviceDetailsList;
     
-    @OneToMany(mappedBy = "bookingDetails",fetch = FetchType.LAZY)
-    List<RoomEntity> roomList;
+    // n-1 voi bang Room
+    @ManyToOne
+    @JoinColumn(name = "RoomID")//khóa ngoại 
+    private RoomEntity room;
 
+    
     public BookingDetailsEntity() {
     }
 
@@ -69,13 +68,6 @@ public class BookingDetailsEntity {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public int getNumberOfRoom() {
-        return numberOfRoom;
-    }
-
-    public void setNumberOfRoom(int numberOfRoom) {
-        this.numberOfRoom = numberOfRoom;
-    }
 
     public Double getPrice() {
         return price;
@@ -119,13 +111,12 @@ public class BookingDetailsEntity {
         this.serviceDetailsList = serviceDetailsList;
     }
 
-    public List<RoomEntity> getRoomList() {
-        return roomList;
+    public RoomEntity getRoom() {
+        return room;
     }
 
-    public void setRoomList(List<RoomEntity> roomList) {
-        this.roomList = roomList;
-    }
-    
+    public void setRoom(RoomEntity room) {
+        this.room = room;
+    }  
     
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 17, 2020 lúc 11:40 AM
+-- Thời gian đã tạo: Th9 30, 2020 lúc 04:25 AM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -26,29 +26,52 @@ USE `bookinghotel`;
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `advantages`
+--
+
+CREATE TABLE `advantages` (
+  `advantagesid` int(11) NOT NULL,
+  `advantages_images` varchar(50) DEFAULT NULL,
+  `advantages_text` varchar(150) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `advantages`
+--
+
+INSERT INTO `advantages` (`advantagesid`, `advantages_images`, `advantages_text`) VALUES
+(1, 'check.png', 'Khách thực, đánh giá thực'),
+(2, 'card.png', 'Phương thức thanh toán an toàn và linh hoạt'),
+(3, 'chat.png', 'Hỗ trợ khách hàng 24/7'),
+(4, 'deal.png', 'Giá rẻ mỗi ngày với ưu đãi đặc biệt dành riêng cho ứng dụng');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `booking`
 --
 
 CREATE TABLE `booking` (
   `BookingID` int(11) NOT NULL,
   `BookingDate` date DEFAULT NULL,
-  `CustomerID` int(11) DEFAULT NULL
+  `Amount` double DEFAULT NULL,
+  `CreditCardID` int(11) DEFAULT NULL,
+  `UserID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `booking`
 --
 
-INSERT INTO `booking` (`BookingID`, `BookingDate`, `CustomerID`) VALUES
-(1, '2020-08-15'),
-(2, '2019-05-05'),
-(3, '2020-06-10'),
-(4, '2018-06-30'),
-(5, '2020-08-20'),
-(6, '2020-09-01'),
-(7, '2020-09-10'),
-(8, '2020-10-01'),
-(9, '2020-11-10');
+INSERT INTO `booking` (`BookingID`, `BookingDate`, `Amount`, `CreditCardID`, `UserID`) VALUES
+(1, '2020-09-10', 2000000, 1, 1),
+(2, '2019-05-05', 4000000, 1, 1),
+(3, '2020-06-10', 1000000, 1, 1),
+(4, '2018-06-30', 8000000, 1, 1),
+(5, '2020-08-30', 8000000, 1, 1),
+(6, '2020-08-30', 8000000, 1, 1),
+(7, '2020-08-30', 8000000, 1, 1),
+(8, '2020-08-30', 8000000, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -59,27 +82,27 @@ INSERT INTO `booking` (`BookingID`, `BookingDate`, `CustomerID`) VALUES
 CREATE TABLE `bookingdetails` (
   `BookingDetailsID` int(11) NOT NULL,
   `NumberOfPeople` int(11) DEFAULT NULL,
-  `NumberOfRooms` int(11) DEFAULT NULL,
   `Price` double DEFAULT NULL,
   `CheckInDate` date DEFAULT NULL,
   `CheckOutDate` date DEFAULT NULL,
-  `BookingID` int(11) DEFAULT NULL
+  `BookingID` int(11) DEFAULT NULL,
+  `RoomID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `bookingdetails`
 --
 
-INSERT INTO `bookingdetails` (`BookingDetailsID`, `NumberOfPeople`, `NumberOfRooms`, `Price`, `CheckInDate`, `CheckOutDate`, `BookingID`) VALUES
-(1, 2, 1, 2000000, '2020-09-07', '2020-09-09',1),
-(2,4,2,5500000,'2019-05-19','2019-05-22',2),
-(3,2,1,250000,'2020-06-15','2020-06-16',3),
-(4,8,3,5000000,'2018-07-18','2018-07-20',4),
-(5,2,1,400000,'2020-08-20','2020-08-21',5),
-(6,5,2,2000000,'2020-09-07','2020-09-10',6),
-(7,6,2,2000000,'2020-09-20','2020-09-25',7),
-(8,2,1,200000,'2020-10-11','2020-10-12',8),
-(9,2,1,280000,'2020-11-21','2020-11-22',9);
+INSERT INTO `bookingdetails` (`BookingDetailsID`, `NumberOfPeople`, `Price`, `CheckInDate`, `CheckOutDate`, `BookingID`, `RoomID`) VALUES
+(1, 2, 300000, '2020-09-07', '2020-09-09', 1, 1),
+(2, 3, 400000, '2020-09-07', '2020-09-09', 1, 2),
+(3, 4, 500000, '2020-09-07', '2020-09-09', 1, 3),
+(4, 1, 200000, '2016-09-07', '2020-09-09', 1, 4),
+(5, 2, 200000, '2016-09-07', '2020-09-09', 5, 5),
+(6, 5, 200000, '2016-09-07', '2020-09-09', 6, 6),
+(7, 6, 200000, '2016-09-07', '2020-09-09', 7, 2),
+(8, 2, 200000, '2016-09-07', '2020-09-09', 8, 4),
+(9, 2, 200000, '2016-09-07', '2020-09-09', 8, 8);
 
 -- --------------------------------------------------------
 
@@ -119,7 +142,7 @@ CREATE TABLE `comment` (
   `CommentDate` date DEFAULT NULL,
   `Rate` double DEFAULT NULL,
   `Content` varchar(255) DEFAULT NULL,
-  `CustomerID` int(11) DEFAULT NULL,
+  `UserID` int(11) DEFAULT NULL,
   `HotelID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -127,8 +150,9 @@ CREATE TABLE `comment` (
 -- Đang đổ dữ liệu cho bảng `comment`
 --
 
-INSERT INTO `comment` (`CommentID`, `CommentDate`, `Rate`, `Content`, `CustomerID`, `HotelID`) VALUES
-(1, '2020-09-10', 5, 'Good', 1, 1);
+INSERT INTO `comment` (`CommentID`, `CommentDate`, `Rate`, `Content`, `UserID`, `HotelID`) VALUES
+(1, '2020-09-10', 5, 'Good', 2, 1),
+(2, '2020-09-10', 5, 'Good', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -151,29 +175,6 @@ CREATE TABLE `creditcard` (
 
 INSERT INTO `creditcard` (`CreditCardID`, `CreditCardType`, `CreditCardNumber`, `CardholdersName`, `ExpirationDate`, `Surplus`) VALUES
 (1, 'Visa', '1111-2222-3333-4444', 'Phạm Văn Trực', '2020-12-30', 40000000);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `customer`
---
-
-CREATE TABLE `customer` (
-  `CustomerID` int(11) NOT NULL,
-  `Email` varchar(50) DEFAULT NULL,
-  `CustomerName` varchar(50) DEFAULT NULL,
-  `Phone` varchar(13) DEFAULT NULL,
-  `Sex` varchar(10) DEFAULT NULL,
-  `BirthDate` date DEFAULT NULL,
-  `Password` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `customer`
---
-
-INSERT INTO `customer` (`CustomerID`, `Email`, `CustomerName`, `Phone`, `Sex`, `BirthDate`, `Password`) VALUES
-(1, 'truckt12a3@gmail.com', 'Phạm Văn Trực', '0123456789', 'Nam', '2000-08-19', 'truc123456');
 
 -- --------------------------------------------------------
 
@@ -215,25 +216,6 @@ INSERT INTO `hotel` (`HotelID`, `HotelName`, `HotelPhone`, `HotelEmail`, `HotelI
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `payment`
---
-
-CREATE TABLE `payment` (
-  `PaymentID` int(11) NOT NULL,
-  `Amount` double DEFAULT NULL,
-  `CreditCardID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `payment`
---
-
-INSERT INTO `payment` (`PaymentID`, `Amount`, `CreditCardID`) VALUES
-(1, 200000, 1);
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `rate`
 --
 
@@ -256,52 +238,63 @@ INSERT INTO `rate` (`RateID`, `TypeRate`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `room`
+--
+
+CREATE TABLE `room` (
+  `RoomID` int(11) NOT NULL,
+  `RoomTypeID` int(11) DEFAULT NULL,
+  `RoomName` varchar(25) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `room`
+--
+
+INSERT INTO `room` (`RoomID`, `RoomTypeID`, `RoomName`) VALUES
+(1, 1, '105'),
+(2, 1, '106'),
+(3, 2, '205'),
+(4, 3, '212'),
+(5, 4, '303'),
+(6, 1, '307'),
+(7, 2, '703'),
+(8, 3, '703'),
+(9, 4, '503'),
+(10, 1, '703');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `roomtype`
 --
 
-CREATE TABLE `roomType` (
+CREATE TABLE `roomtype` (
   `RoomTypeID` int(11) NOT NULL,
   `RoomTypeName` varchar(50) DEFAULT NULL,
   `Descriptions` varchar(50) DEFAULT NULL,
   `Size` varchar(20) DEFAULT NULL,
   `RoomImages` varchar(50) DEFAULT NULL,
   `Price` double DEFAULT NULL,
-  `HotelID` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL,
+  `HotelID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `roomtype`
 --
 
-INSERT INTO `roomType` (`RoomTypeID`, `RoomTypeName`, `Descriptions`, `Size`, `RoomImages`, `Price`, `HotelID`) VALUES
-(1, 'STANDARD', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 500000, 1),
-(2, 'SUPERIOR', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 600000, 2),
-(3, 'DELUXE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 900000, 3),
-(4, 'LUXURY', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1000000, 4),
-(5, 'SUPPERIOR DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 400000, 5),
-(6, 'SUPPERIOR TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 700000, 6),
-(7, 'DELUXE DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1000000, 7),
-(8, 'DELUXE TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1500000, 8),
-(9, 'DELUXE TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1500000, 9);
+INSERT INTO `roomtype` (`RoomTypeID`, `RoomTypeName`, `Descriptions`, `Size`, `RoomImages`, `Price`, `Quantity`, `HotelID`) VALUES
+(1, 'STANDARD', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_standard.jpg', 500000, 99, 1),
+(2, 'SUPERIOR', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_superior.jpg', 600000, 99, 1),
+(3, 'DELUXE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_deluxe.jpg', 900000, 99, 1),
+(4, 'LUXURY', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_luxury.jpg', 1000000, 99, 1),
+(5, 'SUPPERIOR DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 400000, 99, 3),
+(6, 'SUPPERIOR TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 700000, 59, 3),
+(7, 'DELUXE DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1000000, 99, 3),
+(8, 'DELUXE TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1500000, 99, 3);
 
 -- --------------------------------------------------------
-
-CREATE TABLE room (
-	roomID int(11) not null,
-    RoomTypeID int(11) NOT NULL,
-    BookingDetailsID int(11) NOT NULL
-);
-
-insert into room (roomID,roomTypeID,bookingDetailsID)
-value (1,1,1),
-(2,2,2),
-(3,3,3),
-(4,4,4),
-(5,5,5),
-(6,6,6),
-(7,7,7),
-(8,8,8),
-(9,9,9);
 
 --
 -- Cấu trúc bảng cho bảng `service`
@@ -314,24 +307,6 @@ CREATE TABLE `service` (
   `HotelID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Đang đổ dữ liệu cho bảng `service`
---
-
-INSERT INTO `service` (`ServiceID`, `ServiceName`, `Price`, `HotelID`) VALUES
-(1, 'Massage', 800000, 1),
-(2, 'Karaoke', 100000, 1),
-(3, 'Spa', 1000000, 1),
-(4, 'Casino', 50000, 1),
-(5, 'Karaoke', 50000, 3),
-(6, 'Spa', 80000, 3),
-(7, 'Massage', 800000, 1),
-(8, 'Karaoke', 100000, 1),
-(9, 'Spa', 1000000, 1),
-(10, 'Casino', 50000, 1),
-(11, 'Karaoke', 50000, 3),
-(12, 'Spa', 80000, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -340,17 +315,10 @@ INSERT INTO `service` (`ServiceID`, `ServiceName`, `Price`, `HotelID`) VALUES
 
 CREATE TABLE `servicedetails` (
   `ServiceDetailsID` int(11) NOT NULL,
-  `CustomerID` int(11) DEFAULT NULL,
+  `UserID` int(11) DEFAULT NULL,
   `Time` time DEFAULT NULL,
   `BookingDetailsID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `servicedetails`
---
-
-INSERT INTO `servicedetails` (`ServiceDetailsID`, `CustomerID`, `Time`, `BookingDetailsID`) VALUES
-(1, 1, '01:15:30', 1);
 
 -- --------------------------------------------------------
 
@@ -380,39 +348,26 @@ INSERT INTO `slide` (`SlideID`, `SlideImages`, `SlideTitle`) VALUES
 --
 
 CREATE TABLE `users` (
-  `username` varchar(50) NOT NULL,
-  `password` varchar(50) NOT NULL,
-  `enabled` tinyint(4) NOT NULL DEFAULT 1
+  `UserID` int(11) NOT NULL,
+  `Email` varchar(50) DEFAULT NULL,
+  `Name` varchar(50) DEFAULT NULL,
+  `Phone` varchar(13) DEFAULT NULL,
+  `Sex` varchar(10) DEFAULT NULL,
+  `BirthDate` date DEFAULT NULL,
+  `Password` longtext DEFAULT NULL,
+  `enabled` tinyint(4) NOT NULL DEFAULT 1,
+  `username` varchar(50) DEFAULT NULL,
+  `Role` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `enabled`) VALUES
-('admin1', 'abc123', 1),
-('user1', '12345', 1);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `user_roles`
---
-
-CREATE TABLE `user_roles` (
-  `user_roles_id` int(11) NOT NULL,
-  `username` varchar(50) DEFAULT NULL,
-  `role` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Đang đổ dữ liệu cho bảng `user_roles`
---
-
-INSERT INTO `user_roles` (`user_roles_id`, `username`, `role`) VALUES
-(3, 'admin1', 'ROLE_ADMIN'),
-(2, 'admin1', 'ROLE_USER'),
-(1, 'user1', 'ROLE_USER');
+INSERT INTO `users` (`UserID`, `Email`, `Name`, `Phone`, `Sex`, `BirthDate`, `Password`, `enabled`, `username`, `Role`) VALUES
+(1, 'truckt12a3@gmail.com', 'Phạm Văn Trực', '0123456789', 'Nam', '2000-08-19', '$2a$10$gLHIEMOEUrvC.cjlWE2Kqu2hRJvFOqDA2b.1yajmwMtMKZvOhh7eS', 1, 'truc19082000', 'ROLE_USER'),
+(2, 'nva@gmail.com', 'Nguyen Van A', '034234234', 'Nam', '1999-07-18', '$2a$10$mcgrQS.r9YTt5nQWdorpmeY0y0KXWRhok6BPIHdiPdEu9.bE21c5W', 1, 'nvanvan', 'ROLE_USER'),
+(13, 'truckt12a34@gmail.com', NULL, NULL, NULL, NULL, '$2a$10$TaVnlsoYZAIfUAh3rCdG6O1zACWZXRCB5onXxNZeyl//yjohLohHy', 1, 'phamvantruc', 'ROLE_USER');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -423,14 +378,16 @@ INSERT INTO `user_roles` (`user_roles_id`, `username`, `role`) VALUES
 --
 ALTER TABLE `booking`
   ADD PRIMARY KEY (`BookingID`),
-  ADD KEY `fk_booking_customer` (`CustomerID`);
+  ADD KEY `fk_payment_creditCard` (`CreditCardID`),
+  ADD KEY `fk_booking_users` (`UserID`);
 
 --
 -- Chỉ mục cho bảng `bookingdetails`
 --
 ALTER TABLE `bookingdetails`
   ADD PRIMARY KEY (`BookingDetailsID`),
-  ADD KEY `fk_bookingDetails_booking` (`BookingID`);
+  ADD KEY `fk_bookingDetails_booking` (`BookingID`),
+  ADD KEY `fk_room_bookingDetails` (`RoomID`);
 
 --
 -- Chỉ mục cho bảng `city`
@@ -443,7 +400,7 @@ ALTER TABLE `city`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`CommentID`),
-  ADD KEY `fk_comment_customer` (`CustomerID`),
+  ADD KEY `fk_comment_users` (`UserID`),
   ADD KEY `fk_comment_roomType` (`HotelID`);
 
 --
@@ -451,12 +408,6 @@ ALTER TABLE `comment`
 --
 ALTER TABLE `creditcard`
   ADD PRIMARY KEY (`CreditCardID`);
-
---
--- Chỉ mục cho bảng `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`CustomerID`);
 
 --
 -- Chỉ mục cho bảng `hotel`
@@ -467,13 +418,6 @@ ALTER TABLE `hotel`
   ADD KEY `fk_hotel_rate` (`RateID`);
 
 --
--- Chỉ mục cho bảng `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`PaymentID`),
-  ADD KEY `fk_payment_creditCard` (`CreditCardID`);
-
---
 -- Chỉ mục cho bảng `rate`
 --
 ALTER TABLE `rate`
@@ -482,14 +426,17 @@ ALTER TABLE `rate`
 --
 -- Chỉ mục cho bảng `room`
 --
+ALTER TABLE `room`
+  ADD PRIMARY KEY (`RoomID`),
+  ADD KEY `fk_room_roomType` (`RoomTypeID`);
+
+--
+-- Chỉ mục cho bảng `roomtype`
+--
 ALTER TABLE `roomtype`
   ADD PRIMARY KEY (`RoomTypeID`),
   ADD KEY `fk_roomType_hotel` (`HotelID`);
 
-alter table `room`
-add primary key (`roomID`),
-add key `fk_room_roomTypeID` (`RoomtypeID`),
-add key `fk_room_BookingDetailsID` (`bookingDetailsID`);
 --
 -- Chỉ mục cho bảng `service`
 --
@@ -514,14 +461,7 @@ ALTER TABLE `slide`
 -- Chỉ mục cho bảng `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`username`);
-
---
--- Chỉ mục cho bảng `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`user_roles_id`),
-  ADD UNIQUE KEY `uni_username_role` (`username`,`role`);
+  ADD PRIMARY KEY (`UserID`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -531,13 +471,13 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT cho bảng `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `bookingdetails`
 --
 ALTER TABLE `bookingdetails`
-  MODIFY `BookingDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `BookingDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT cho bảng `city`
@@ -549,7 +489,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `creditcard`
@@ -558,22 +498,10 @@ ALTER TABLE `creditcard`
   MODIFY `CreditCardID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `customer`
---
-ALTER TABLE `customer`
-  MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT cho bảng `hotel`
 --
 ALTER TABLE `hotel`
-  MODIFY `HotelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT cho bảng `payment`
---
-ALTER TABLE `payment`
-  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `HotelID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT cho bảng `rate`
@@ -585,15 +513,19 @@ ALTER TABLE `rate`
 -- AUTO_INCREMENT cho bảng `room`
 --
 ALTER TABLE `room`
-  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
+--
+-- AUTO_INCREMENT cho bảng `roomtype`
+--
 ALTER TABLE `roomtype`
   MODIFY `RoomTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT cho bảng `service`
 --
 ALTER TABLE `service`
-  MODIFY `ServiceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `ServiceID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `slide`
@@ -602,10 +534,10 @@ ALTER TABLE `slide`
   MODIFY `SlideID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT cho bảng `user_roles`
+-- AUTO_INCREMENT cho bảng `users`
 --
-ALTER TABLE `user_roles`
-  MODIFY `user_roles_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `users`
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -615,27 +547,28 @@ ALTER TABLE `user_roles`
 -- Các ràng buộc cho bảng `booking`
 --
 ALTER TABLE `booking`
-  ADD CONSTRAINT `fk_booking_customer` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`),
-  ADD CONSTRAINT `fk_booking_payment` FOREIGN KEY (`BookingID`) REFERENCES `payment` (`PaymentID`);
+  ADD CONSTRAINT `fk_booking_users` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
+  ADD CONSTRAINT `fk_payment_creditCard` FOREIGN KEY (`CreditCardID`) REFERENCES `creditcard` (`CreditCardID`);
 
 --
 -- Các ràng buộc cho bảng `bookingdetails`
 --
 ALTER TABLE `bookingdetails`
-  ADD CONSTRAINT `fk_bookingDetails_booking` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`);
+  ADD CONSTRAINT `fk_bookingDetails_booking` FOREIGN KEY (`BookingID`) REFERENCES `booking` (`BookingID`),
+  ADD CONSTRAINT `fk_room_bookingDetails` FOREIGN KEY (`RoomID`) REFERENCES `room` (`RoomID`);
 
 --
 -- Các ràng buộc cho bảng `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `fk_comment_customer` FOREIGN KEY (`CustomerID`) REFERENCES `customer` (`CustomerID`),
-  ADD CONSTRAINT `fk_comment_roomType` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
+  ADD CONSTRAINT `fk_comment_roomType` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`),
+  ADD CONSTRAINT `fk_comment_users` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 
 --
--- Các ràng buộc cho bảng `customer`
+-- Các ràng buộc cho bảng `creditcard`
 --
-ALTER TABLE `customer`
-  ADD CONSTRAINT `fk_customer_creditCard` FOREIGN KEY (`CustomerID`) REFERENCES `creditcard` (`CreditCardID`);
+ALTER TABLE `creditcard`
+  ADD CONSTRAINT `fk_creditCard_users` FOREIGN KEY (`CreditCardID`) REFERENCES `users` (`UserID`);
 
 --
 -- Các ràng buộc cho bảng `hotel`
@@ -645,20 +578,17 @@ ALTER TABLE `hotel`
   ADD CONSTRAINT `fk_hotel_rate` FOREIGN KEY (`RateID`) REFERENCES `rate` (`RateID`);
 
 --
--- Các ràng buộc cho bảng `payment`
---
-ALTER TABLE `payment`
-  ADD CONSTRAINT `fk_payment_creditCard` FOREIGN KEY (`CreditCardID`) REFERENCES `creditcard` (`CreditCardID`);
-
---
 -- Các ràng buộc cho bảng `room`
+--
+ALTER TABLE `room`
+  ADD CONSTRAINT `fk_room_roomType` FOREIGN KEY (`RoomTypeID`) REFERENCES `roomtype` (`RoomTypeID`);
 
+--
+-- Các ràng buộc cho bảng `roomtype`
+--
 ALTER TABLE `roomtype`
   ADD CONSTRAINT `fk_roomType_hotel` FOREIGN KEY (`HotelID`) REFERENCES `hotel` (`HotelID`);
 
-alter table `room`
-add constraint `fk_room_roomTypeID`  foreign key(`RoomtypeID`) references `roomType` (`RoomtypeID`),
-add constraint `fk_room_BookingDetailsID`  foreign key (`bookingDetailsID`)references `bookingdetails` (`bookingDetailsID`) ;
 --
 -- Các ràng buộc cho bảng `service`
 --
@@ -671,12 +601,6 @@ ALTER TABLE `service`
 ALTER TABLE `servicedetails`
   ADD CONSTRAINT `fk_serviceDetails_BookingDetails` FOREIGN KEY (`BookingDetailsID`) REFERENCES `bookingdetails` (`BookingDetailsID`),
   ADD CONSTRAINT `fk_serviceDetails_Service` FOREIGN KEY (`ServiceDetailsID`) REFERENCES `service` (`ServiceID`);
-
---
--- Các ràng buộc cho bảng `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD CONSTRAINT `fk_user_roles` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

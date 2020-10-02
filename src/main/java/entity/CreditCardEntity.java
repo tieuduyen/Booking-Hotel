@@ -40,11 +40,11 @@ public class CreditCardEntity {
     
     @OneToOne()
     @PrimaryKeyJoinColumn
-    private CustomerEntity customer;//(1)
-    
+    private UsersEntity users;//(1) 
+           
     //Setup relationshipss with Payment
     @OneToMany(mappedBy = "creditCard",fetch = FetchType.LAZY)
-    List<PaymentEntity> paymentList;
+    List<BookingEntity> bookingList;
 
     public CreditCardEntity() {
     }
@@ -97,21 +97,20 @@ public class CreditCardEntity {
         this.surplus = surplus;
     }
 
-    public List<PaymentEntity> getPaymentList() {
-        return paymentList;
+    public List<BookingEntity> getBookingList() {
+        return bookingList;
     }
 
-    public void setPaymentList(List<PaymentEntity> paymentList) {
-        this.paymentList = paymentList;
+    public void setBookingList(List<BookingEntity> bookingList) {
+        this.bookingList = bookingList;
     }
 
-    public CustomerEntity getCustomer() {
-        return customer;
+    public UsersEntity getUsers() {
+        return users;
     }
 
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setUsers(UsersEntity users) {
+        this.users = users;
     }
-
     
 }

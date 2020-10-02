@@ -2,14 +2,17 @@
 package entity;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,30 +26,15 @@ public class RoomEntity {
     @Column(name = "RoomName")
     private String name;
     
-    @Column(name = "Descriptions")
-    private String descriptions;
-    
-    @Column(name = "Size")
-    private String size;
-    
-    @Column(name="RoomImages")
-    private String images;
-    
-    @Column(name="Price")
-    private Double price;
-    
-    
     // n-1 voi bang RoomType
     @ManyToOne
     @JoinColumn(name="RoomTypeID")//khóa ngoại 
     private RoomTypeEntity roomType;
+
     
+    @OneToMany(mappedBy = "room",fetch = FetchType.LAZY)
+    List<BookingDetailsEntity> bookingDetailsList;
     
-    
-    // n-1 voi bang BookingDetails
-    @ManyToOne
-    @JoinColumn(name="BookingDetailsID")//khóa ngoại 
-    private BookingDetailsEntity bookingDetails;
     
     public RoomEntity() {
     }
@@ -67,45 +55,12 @@ public class RoomEntity {
         this.name = name;
     }
 
-    public String getDescriptions() {
-        return descriptions;
+    public List<BookingDetailsEntity> getBookingDetailsList() {
+        return bookingDetailsList;
     }
 
-    public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-
-    public BookingDetailsEntity getBookingDetails() {
-        return bookingDetails;
-    }
-
-    public void setBookingDetails(BookingDetailsEntity bookingDetails) {
-        this.bookingDetails = bookingDetails;
+    public void setBookingDetailsList(List<BookingDetailsEntity> bookingDetailsList) {
+        this.bookingDetailsList = bookingDetailsList;
     }
 
     public RoomTypeEntity getRoomType() {
@@ -116,11 +71,5 @@ public class RoomEntity {
         this.roomType = roomType;
     }
 
-    
-    
-    public String getPriceFormatted(){
-        Locale localeVN = new Locale("vi", "VN");
-        NumberFormat priceFormat = NumberFormat.getCurrencyInstance(localeVN);
-        return priceFormat.format(price);
-    }
+
 }

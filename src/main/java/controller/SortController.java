@@ -29,22 +29,22 @@ public class SortController {
     //sort
     @RequestMapping(value = "/sort-by-evaluate-high-to-low/{name}", method = RequestMethod.GET)
     public String sortHotelByRateHighToLow(@PathVariable(value = "name") String name, Model model) {
-        List<HotelEntity> hotelList = (List<HotelEntity>) hotelRepo.sortHotelByEvaluateHighToLow(name);
-        CityEntity city = cityRepo.findByName(name);
-        model.addAttribute("hotelList", hotelList);
+        List<HotelEntity> availableHotel = (List<HotelEntity>) hotelRepo.sortHotelByEvaluateHighToLow(name);
+        CityEntity city = cityRepo.findByNameLike(name);
+        model.addAttribute("availableHotel", availableHotel);
         model.addAttribute("city", city);
-        return "view-hotel-by-city";
+        return "viewpage/view-hotel-by-city";
     }
     @RequestMapping(value = "/sort-by-evaluate-low-to-high/{name}", method = RequestMethod.GET)
     public String sortHotelByRateLowToHigh(@PathVariable(value = "name") String name, Model model) {
-        List<HotelEntity> hotelList = (List<HotelEntity>) hotelRepo.sortHotelByEvaluateLowToHigh(name);
-        CityEntity city = cityRepo.findByName(name);
+        List<HotelEntity> availableHotel = (List<HotelEntity>) hotelRepo.sortHotelByEvaluateLowToHigh(name);
+        CityEntity city = cityRepo.findByNameLike(name);
         List<RateEntity> rateList = (List<RateEntity>) rateRepo.findAll();
         
-        model.addAttribute("hotelList", hotelList);
+        model.addAttribute("availableHotel", availableHotel);
         model.addAttribute("city", city);
         model.addAttribute("rateList", rateList);
-        return "view-hotel-by-city";
+        return "viewpage/view-hotel-by-city";
     }
 
 }

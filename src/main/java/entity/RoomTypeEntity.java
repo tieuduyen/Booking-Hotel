@@ -37,6 +37,9 @@ public class RoomTypeEntity {
     @Column(name="Price")
     private Double price;
     
+    @Column(name="Quantity")
+    private int quantity;
+    
     @ManyToOne
     @JoinColumn(name="HotelID")//khóa ngoại 
     private HotelEntity hotel;
@@ -96,6 +99,13 @@ public class RoomTypeEntity {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     public HotelEntity getHotel() {
         return hotel;
     }

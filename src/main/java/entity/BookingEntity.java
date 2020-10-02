@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -24,23 +22,28 @@ public class BookingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BookingID")
     private int id;
-
+ 
     @Column(name = "BookingDate")
     private LocalDate bookingDate;
-
-    //Setup relationshipss with Payment
-    @OneToOne()
-    @PrimaryKeyJoinColumn
-    private PaymentEntity payment;//
+    
+    @Column(name = "Amount")
+    private double amount;
 
     @OneToMany(mappedBy = "booking",fetch = FetchType.LAZY)
     List<BookingDetailsEntity> bookingDetailsList;
 
-    // n-1 voi bang Rate
+    // n-1 voi bang users
     @ManyToOne
-    @JoinColumn(name = "CustomerID")//khóa ngoại 
-    private CustomerEntity customer;
+    @JoinColumn(name = "UserID")//khóa ngoại 
+    private UsersEntity users;
 
+    
+    // n-1 voi bang Credit
+    @ManyToOne
+    @JoinColumn(name = "CreditCardID")//khóa ngoại 
+    private CreditCardEntity creditCard;
+
+    
     public BookingEntity() {
     }
 
@@ -60,14 +63,14 @@ public class BookingEntity {
         this.bookingDate = bookingDate;
     }
 
-    public PaymentEntity getPayment() {
-        return payment;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setPayment(PaymentEntity payment) {
-        this.payment = payment;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
-
+    
     public List<BookingDetailsEntity> getBookingDetailsList() {
         return bookingDetailsList;
     }
@@ -76,14 +79,21 @@ public class BookingEntity {
         this.bookingDetailsList = bookingDetailsList;
     }
 
-
-
-    public CustomerEntity getCustomer() {
-        return customer;
+    public UsersEntity getUsers() {
+        return users;
     }
 
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setUsers(UsersEntity users) {
+        this.users = users;
     }
 
+    public CreditCardEntity getCreditCard() {
+        return creditCard;
+    }
+
+    public void setCreditCard(CreditCardEntity creditCard) {
+        this.creditCard = creditCard;
+    }
+    
+    
 }

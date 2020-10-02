@@ -28,8 +28,8 @@ public class CommentEntity {
     private String content;
     
     @ManyToOne
-    @JoinColumn(name="CustomerID")//khóa ngoại 
-    private CustomerEntity customer;
+    @JoinColumn(name="UserID")//khóa ngoại 
+    private UsersEntity users;
     
     @ManyToOne
     @JoinColumn(name="HotelID")//khóa ngoại 
@@ -70,12 +70,12 @@ public class CommentEntity {
         this.content = content;
     }
 
-    public CustomerEntity getCustomer() {
-        return customer;
+    public UsersEntity getUsers() {
+        return users;
     }
 
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
+    public void setUsers(UsersEntity users) {
+        this.users = users;
     }
 
     public HotelEntity getHotel() {
