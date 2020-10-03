@@ -3,12 +3,12 @@ package controller;
 import entity.UsersEntity;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,11 +36,13 @@ public class RegisterController {
         return "register/registerPage"; //return register.jsp
     }
 
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String createNewUser(@Valid @ModelAttribute("users") UsersEntity users, BindingResult result) {
+    public String createNewUser(@Valid @ModelAttribute("users") UsersEntity users, BindingResult result,
+            HttpServletRequest request, HttpSession session) {
 
         List<UsersEntity> usersList = usersRepo.getAllUsers();
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "register/registerPage";
         }
         for (int i = 0; i < usersList.size(); i++) {
@@ -51,7 +53,7 @@ public class RegisterController {
                 return "register/registerPage";
             }
             if (users.getUsername().equals(usersList.get(i).getUsername())) {
-                
+
                 return "register/registerPage";
             }
         }
@@ -62,6 +64,7 @@ public class RegisterController {
 
         users.setEnabled(true);
         usersRepo.save(users);
+        session.setAttribute("users", users);
 
         //send mail
         SimpleMailMessage msg = new SimpleMailMessage();
@@ -74,7 +77,7 @@ public class RegisterController {
         return "redirect:/";
     }
 
- /*
+    /*
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String registerCustomerPost(@Valid @ModelAttribute("customer") UsersEntity customer, @RequestParam(name = "rePassword") String rePassword,
             Model model, Errors errors) {

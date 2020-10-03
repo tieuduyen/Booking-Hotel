@@ -1,16 +1,11 @@
 package controller;
 
 import entity.UsersEntity;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +29,22 @@ public class LoginController {
         return "login/loginPage";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+	public String login(@RequestParam(name = "email") String email,
+                            @RequestParam(name = "password") String password,
+		            HttpSession session) {
+            
+             UsersEntity users = usersRepo.findByEmail(email);
+             
+		if(users.getPassword().equals(bCryptPasswordEncoder.encode(password))) {
+			session.setAttribute("users", users);
+			return "redirect:/";
+		} else {
+			return "login/loginPage";
+		}
+	}
+    
+        /*
     @RequestMapping(value = "/login")
     public String validateUser(@RequestParam(name = "email") String email,
             @RequestParam(name = "password") String password) {
@@ -51,15 +62,11 @@ public class LoginController {
         }
         //users.getPassword().equals(passwordEncoder.encode(password)) && users.getEmail().equals(email)
     }
-
-    //Logout
+*/
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/";
-    }
+	public String logout(HttpSession session) {
+		session.removeAttribute("users");
+		return "redirect:/";
+	}
 
 }

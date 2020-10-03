@@ -27,6 +27,16 @@
                                     <mvc:errors path="username" />
                             </div>
                             <div class="form-group">
+                                <label for="name"><i class="glyphicon glyphicon-user"></i></label>
+                                    <mvc:input type="text" name="name" path="name" id="name" placeholder="Name" cssErrorClass="formFieldError" />
+                                    <mvc:errors path="name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone"><i class="glyphicon glyphicon-earphone"></i></label>
+                                    <mvc:input type="text" name="phone" path="phone" id="phone" placeholder="Number Of Phone" cssErrorClass="formFieldError" />
+                                    <mvc:errors path="phone" />
+                            </div>
+                            <div class="form-group">
                                 <label for="email"><i class="glyphicon glyphicon-envelope"></i></label>
                                     <mvc:input type="text" name="email" path="email" id="email" placeholder="Your Email" cssErrorClass="formFieldError" />
                                     <mvc:errors path="email" />
@@ -59,56 +69,7 @@
                 </div>
             </div>
         </section>
-        <%--
-        <mvc:form modelAttribute="customer" action="${pageContext.request.contextPath}/register" method="post">
-            <h1>Registration</h1> 
-
-            <div class="form-group">
-                <label for="username">User Name</label>
-                <mvc:errors path="username"/>
-                <mvc:input path="username" id="username" />
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <mvc:errors path="email"/>
-                <mvc:input path="email" id="email" />
-            </div>
-
-            <div class="form-group">
-                <label for="name">Name</label>
-                <mvc:errors path="name"/>
-                <mvc:input path="name" id="name" />
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <mvc:errors path="phone"/>
-                <mvc:input path="phone" id="phone" />
-            </div>
-
-            <div class="form-group">
-                <label for="sex">Sex</label>
-                <mvc:errors path="sex"/>
-                <mvc:input path="sex" id="sex" />
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <mvc:errors path="password"/>
-                <mvc:input path="password" id="password" type="password" />
-            </div>
-
-            <div class="form-group">
-                <label for="birthdate">BirthDate</label>
-                <mvc:errors path="birthdate"/>
-                <mvc:input path="birthdate" id="birthdate" type="Date" />
-            </div>
-
-            <br><br>
-            <input type="submit" value="Register">
-            <a href="<c:url value="/" />">Cancel</a>
-        </mvc:form>  
-        --%>
+       
         <script src="<c:url value="/resources/login_register_css/vendor/jquery/jquery.min.js" />"></script>
         <script src="<c:url value="/resources/login_register_css/js/main.js" />"></script>
         <script src="<c:url value="/resources/js/notify.js" />"></script>

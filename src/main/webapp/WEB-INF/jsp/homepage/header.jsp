@@ -31,14 +31,17 @@
                             <div class="content_search ml-lg-0 ml-auto">
 
                             </div>
-                            <div class="user_box ml-auto">
-                                <div class="user_box_login user_box_link"><a href="${pageContext.request.contextPath}/login">login</a></div>
-                                <div class="user_box_register user_box_link"><a href="${pageContext.request.contextPath}/register">register</a></div>
-                            </div>
+                            <% if (session.getAttribute("users") != null) { %>
                             <div class="user_box ml-auto">
                                 <div class="user_box_login user_box_link"><a href="#">${users.email}.</a></div>
                                 <div class="user_box_register user_box_link"><a href="<c:url value="/logout" />">logout</a></div>
                             </div>
+                            <% } else { %>
+                            <div class="user_box ml-auto">
+                                <div class="user_box_login user_box_link"><a href="${pageContext.request.contextPath}/login">login</a></div>
+                                <div class="user_box_register user_box_link"><a href="${pageContext.request.contextPath}/register">register</a></div>
+                            </div>
+                            <% }%>
                         </div>
                     </div>
                 </div>		
@@ -85,12 +88,12 @@
                 </ul>
             </div>
         </div>
-        
 
-    <script src="<c:url value="/resources/js/jquery-3.2.1.min.js" />"></script>
-    <script src="<c:url value="/resources/styles/bootstrap4/popper.js" />"></script>
-    <script src="<c:url value="/resources/styles/bootstrap4/bootstrap.min.js" />"></script>
-    <script src="<c:url value="/resources/plugins/colorbox/jquery.colorbox-min.js" />"></script>
-    <script src="<c:url value="/resources/plugins/parallax-js-master/parallax.min.js" />"></script>
-    <script src="<c:url value="/resources/js/blog_custom.js" />"></script>
+
+        <script src="<c:url value="/resources/js/jquery-3.2.1.min.js" />"></script>
+        <script src="<c:url value="/resources/styles/bootstrap4/popper.js" />"></script>
+        <script src="<c:url value="/resources/styles/bootstrap4/bootstrap.min.js" />"></script>
+        <script src="<c:url value="/resources/plugins/colorbox/jquery.colorbox-min.js" />"></script>
+        <script src="<c:url value="/resources/plugins/parallax-js-master/parallax.min.js" />"></script>
+        <script src="<c:url value="/resources/js/blog_custom.js" />"></script>
 </html>

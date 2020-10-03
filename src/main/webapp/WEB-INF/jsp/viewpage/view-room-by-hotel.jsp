@@ -23,36 +23,41 @@
                         <h2 class="section_title">hệ thống phòng</h2>
                     </div>
                 </div>
-                <div class="row offers_items">
-                    <!-- Offers Item -->
-                    <c:forEach var="room" items="${roomList}">
-                        <div class="col-lg-12 offers_col">
-                            <div class="offers_item">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="offers_image_container">
-                                            <!-- Image by https://unsplash.com/@kensuarez -->
-                                            <div class="offers_image_background" style="background-image:url(<c:url value="/resources/images/${room.roomType.images}" />)"></div>
-                                            <div class="offer_name"><a href="${pageContext.request.contextPath}/room/${room.roomType.name}">${room.roomType.name}</a></div>
+                <c:if test="${roomList.size()>0}">
+                    <div class="row offers_items">
+                        <!-- Offers Item -->
+                        <c:forEach var="room" items="${roomList}">
+                            <div class="col-lg-12 offers_col">
+                                <div class="offers_item">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="offers_image_container">
+                                                <!-- Image by https://unsplash.com/@kensuarez -->
+                                                <div class="offers_image_background" style="background-image:url(<c:url value="/resources/images/${room.roomType.images}" />)"></div>
+                                                <div class="offer_name"><a href="${pageContext.request.contextPath}/room/${room.roomType.name}">${room.roomType.name}</a></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-8">
-                                        <div class="offers_content">
-                                            <div class="offers_price">${room.roomType.priceFormatted}</div>
-                                            <p class="offers_text">${room.roomType.descriptions}</p>
-                                            <div><p class="offers_text">Phù hợp cho:<strong>${room.roomType.size}</strong></p></div>
-                                             <div class="button book_button" style="background-color: #0069d9;"><a href="${pageContext.request.contextPath}/addToCart/${room.roomType.id}">Booking<span></span><span></span><span></span></a></div> 
-                                               
+                                        <div class="col-lg-8">
+                                            <div class="offers_content">
+                                                <div class="offers_price">${room.roomType.priceFormatted}</div>
+                                                <p class="offers_text" style="overflow: hidden;verflow: ellipsis;line-height: 25px;-webkit-line-clamp: 2;display: -webkit-box;-webkit-box-orient: vertical;">${room.roomType.descriptions}</p>
+                                                <div><p class="offers_text">Phù hợp cho:<strong>${room.roomType.size}</strong></p></div>
+                                                <div class="button book_button" style="background-color: #0069d9;"><a href="${pageContext.request.contextPath}/addToCart/${room.roomType.id}">Booking<span></span><span></span><span></span></a></div> 
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-
-                </div>
+                        </c:forEach>
+                    </div>
+                </c:if>
+                <c:if test="${roomList.size()==0}">
+                    <h4 style="text-align: center; padding-top: 3em;">This hotel currently does not have any rooms! Please choose another hotel. :'(</h4>
+                </c:if>
             </div>
         </div>
+        <jsp:include page="../viewpage/commentForm.jsp" />
     </body>
     <jsp:include page="../homepage/footer.jsp" />
 </html>

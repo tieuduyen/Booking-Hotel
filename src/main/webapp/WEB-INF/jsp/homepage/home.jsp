@@ -6,8 +6,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>List All Hotel Page</title>
     </head>
-    <jsp:include page="header.jsp" />
+
     <body>
+        <jsp:include page="header.jsp" />
         <jsp:include page="slide.jsp" />
         <div class="search" >
             <!-- Search Contents -->
@@ -28,7 +29,7 @@
 
                                 <div class="search_item">
                                     <div>ngày đến</div>
-                                  <input type="date" name="checkIn" class="check_in search_input">
+                                    <input type="date" name="checkIn" class="check_in search_input">
                                 </div>
                                 <div class="search_item">
                                     <div>ngày đi</div>
@@ -129,7 +130,7 @@
                                                 <i></i>
                                                 <i></i>
                                             </div>
-                                            <p class="offers_text">${roomType.descriptions}</p>
+                                            <p class="offers_text" style="overflow: hidden;verflow: ellipsis;line-height: 25px;-webkit-line-clamp: 3;display: -webkit-box;-webkit-box-orient: vertical;">${roomType.descriptions}</p>
 
                                             <div class="offers_link"><a href="offers.html">read more</a></div>
                                         </div>
