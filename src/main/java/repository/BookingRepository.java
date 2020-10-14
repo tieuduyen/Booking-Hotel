@@ -21,4 +21,9 @@ public interface BookingRepository extends CrudRepository<BookingEntity,Integer>
             + "join bookingDetails bd on b.BookingID = bd.BookingID"
             + "where bd.BookingID = ?1", nativeQuery = true)
     BookingEntity getTotalBookingDetailsPrice(int bookingId);
+    
+    @Query(value = "SELECT b FROM BookingEntity b WHERE b.users.id = ?1")
+    List<BookingEntity> findUserByBooking(@Param("id") int id);
+    
+    BookingEntity findById(int id);
 }

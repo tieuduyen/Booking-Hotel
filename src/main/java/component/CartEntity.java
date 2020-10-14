@@ -57,40 +57,14 @@ public class CartEntity {
     
     //Add Item
     public void addRoomType(RoomTypeEntity roomType) {
-        /*boolean t = false;
-        for (int i = 0; i < bookingDetailsList.size(); i++) {
-            if (bookingDetailsList.get(i).getRoom().getRoomType().getId() == roomType.getId()) {
-                BookingDetailsEntity bookingDetails = bookingDetailsList.get(i);
-                bookingDetailsList.set(i, bookingDetails);
-                t = true;
-            }
-        }*/
-        //if (!t) {
             BookingDetailsEntity bookingDetails = new BookingDetailsEntity();
             RoomEntity room = new RoomEntity();
             room.setRoomType(roomType);
             bookingDetails.setId(1);
             bookingDetails.setRoom(room);
             bookingDetailsList.add(bookingDetails);
-        //}
+
     }
-    
-    //Add Room
-    /*public void addRoomType1(RoomEntity room) {
-        boolean t = false;
-        for (int i = 0; i < bookingDetailsList.size(); i++) {
-            if (bookingDetailsList.get(i).getRoom().getRoomType().getId() == roomType.getId()) {
-                BookingDetailsEntity bookingDetails = bookingDetailsList.get(i);
-                bookingDetailsList.set(i, bookingDetails);
-                t = true;
-            }
-        }
-        if (!t) {
-            BookingDetailsEntity bookingDetails = new BookingDetailsEntity();
-            bookingDetails.setRoom(room);
-            bookingDetails.getRoom().getRoomType().getPrice();
-            bookingDetailsList.add(bookingDetails);
-        }
-    }*/
+
     
 }
