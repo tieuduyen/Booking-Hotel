@@ -25,6 +25,8 @@ public class BookingDetailsEntity {
     @Column(name = "NumberOfPeople")
     private int numberOfPeople;
     
+    private int quantity;
+        
     @Column(name = "Price")
     private Double price;
     
@@ -118,5 +120,13 @@ public class BookingDetailsEntity {
     public void setRoom(RoomEntity room) {
         this.room = room;
     }  
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     
 }

@@ -101,6 +101,7 @@ public class HotelController {
         return "viewpage/view-hotel-by-city";
     }
 
+    
     // List TypeRoom By Hotel
     @RequestMapping(value = "/hotel/{name}", method = RequestMethod.GET)
     public String showRoomTypeByHotel(@PathVariable(value = "name") String name, Model model,HttpSession session) {
@@ -111,7 +112,7 @@ public class HotelController {
 
         model.addAttribute("commentList", commentList);
         model.addAttribute("roomList", roomList);
-        model.addAttribute("hotel", hotel);
+        model.addAttribute("hotel", hotel); 
 
         return "viewpage/view-room-by-hotel";
     }

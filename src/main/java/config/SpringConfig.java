@@ -28,9 +28,9 @@ public class SpringConfig {
     DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/bookinghotel?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");//
+        dataSource.setUrl("jdbc:mysql://localhost:3306/bookinghotel");//
         dataSource.setUsername("root");//
-        dataSource.setPassword("");//
+        dataSource.setPassword("admin");//
 
         return dataSource;
     }
