@@ -79,7 +79,7 @@
                                     </div>
                                 
                             </c:forEach><br>
-                            
+
                                 <table class="table site-block-order-table mb-5">
                                     <thead>
                                     <th>Room Type</th>

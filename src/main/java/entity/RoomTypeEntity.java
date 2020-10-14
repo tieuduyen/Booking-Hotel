@@ -106,6 +106,7 @@ public class RoomTypeEntity {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
     public HotelEntity getHotel() {
         return hotel;
     }

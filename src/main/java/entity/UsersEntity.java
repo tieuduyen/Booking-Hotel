@@ -93,22 +93,6 @@ public class UsersEntity implements Serializable {
 
     }
 
-    public UsersEntity(int id, String email, String name, String phone, String sex, LocalDate birthdate, String password, String passwordConfirm, String username, boolean enabled, String role, CreditCardEntity creditCard, List<BookingEntity> bookingList, List<CommentEntity> comment) {
-        this.id = id;
-        this.email = email;
-        this.name = name;
-        this.phone = phone;
-        this.sex = sex;
-        this.birthdate = birthdate;
-        this.password = password;
-        this.passwordConfirm = passwordConfirm;
-        this.username = username;
-        this.enabled = enabled;
-        this.creditCard = creditCard;
-        this.bookingList = bookingList;
-        this.comment = comment;
-    }
-
     public int getId() {
         return id;
     }

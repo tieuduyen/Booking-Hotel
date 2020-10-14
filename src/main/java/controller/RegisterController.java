@@ -57,9 +57,6 @@ public class RegisterController {
                 return "register/registerPage";
             }
         }
-
-        //String encrytedPassword = BCrypt.hashpw(users.getPassword(), BCrypt.gensalt());
-        //String encrytedPassword = encrytePassword(users.getPassword());
         users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
 
         users.setEnabled(true);
@@ -76,41 +73,4 @@ public class RegisterController {
         //return "homepage/home";
         return "redirect:/";
     }
-
-    /*
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerCustomerPost(@Valid @ModelAttribute("customer") UsersEntity customer, @RequestParam(name = "rePassword") String rePassword,
-            Model model, Errors errors) {
-
-        List<CustomerEntity> customerList = customerRepo.getAllCustomers();
-        for (int i = 0; i < customerList.size(); i++) {
-            if (!(customer.getPassword().equals(rePassword))) {
-\
-    fghjkl;'\cvbnm,./cv/errors.rejectValue("rePassword", "notmatch.rePassword");
-                return "register/registerPage";
-            }
-            if (customer.getEmail().equals(customerList.get(i).getEmail())) {
-                errors.rejectValue("email", "notmatch.email");
-                return "register/registerPage";
-            }
-            if (customer.getUsername().equals(customerList.get(i).getUsername())) {
-                errors.rejectValue("username", "notmatch.username");
-                return "register/registerPage";
-            }
-        }
-
-        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        customer.setEnabled(true);
-        customerRepo.save(customer);
-
-        // send mail
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(customer.getEmail());
-        msg.setSubject("Booking Hotel Web");
-        msg.setText("Congratulations! You have successfully registered for an account.");
-        javaMailSender.send(msg);
-    
-        return "homepage/home";
-    }
-     */
 }

@@ -27,16 +27,6 @@
                                     <mvc:errors path="username" />
                             </div>
                             <div class="form-group">
-                                <label for="name"><i class="glyphicon glyphicon-user"></i></label>
-                                    <mvc:input type="text" name="name" path="name" id="name" placeholder="Name" cssErrorClass="formFieldError" />
-                                    <mvc:errors path="name" />
-                            </div>
-                            <div class="form-group">
-                                <label for="phone"><i class="glyphicon glyphicon-earphone"></i></label>
-                                    <mvc:input type="text" name="phone" path="phone" id="phone" placeholder="Number Of Phone" cssErrorClass="formFieldError" />
-                                    <mvc:errors path="phone" />
-                            </div>
-                            <div class="form-group">
                                 <label for="email"><i class="glyphicon glyphicon-envelope"></i></label>
                                     <mvc:input type="text" name="email" path="email" id="email" placeholder="Your Email" cssErrorClass="formFieldError" />
                                     <mvc:errors path="email" />

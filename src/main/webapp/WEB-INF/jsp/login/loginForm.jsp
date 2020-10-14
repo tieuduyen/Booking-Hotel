@@ -33,7 +33,6 @@
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
                                 <a href="<c:url value="/" />" id="signup" class="form-submit">Cancel</a>
-      
                             </div>
                         </form>
                        

@@ -13,12 +13,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="creditCard")
 public class CreditCardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CreditCardID")
     private int id;
     
@@ -32,6 +32,7 @@ public class CreditCardEntity {
     private String cardholdersName;
     
     @Column(name = "ExpirationDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expirationDate;
     
     @Column(name = "Surplus")

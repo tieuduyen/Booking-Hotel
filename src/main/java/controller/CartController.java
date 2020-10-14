@@ -101,11 +101,10 @@ public class CartController {
     }
     //Continue
     @RequestMapping(value = "/continue", method = RequestMethod.POST)
-    public String next(BookingEntity booking,Model model){
-        UsersEntity user = cart.getUser();
-        booking.setUsers(user);
+    public String next(UsersEntity user,Model model){
+        cart.setUser(user);
         
-        model.addAttribute("cart", cart);
+       // model.addAttribute("cart", cart);
         return "viewpage/continue";     
     }
     
