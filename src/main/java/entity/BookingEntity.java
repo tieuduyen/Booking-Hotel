@@ -2,6 +2,7 @@
 package entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +29,9 @@ public class BookingEntity {
     
     @Column(name = "Amount")
     private double amount;
+    
+    @Column(name = "Status")
+    private String status;
 
     @OneToMany(mappedBy = "booking",fetch = FetchType.LAZY)
     List<BookingDetailsEntity> bookingDetailsList;
@@ -70,6 +74,14 @@ public class BookingEntity {
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
     public List<BookingDetailsEntity> getBookingDetailsList() {
         return bookingDetailsList;
@@ -95,5 +107,8 @@ public class BookingEntity {
         this.creditCard = creditCard;
     }
     
-    
+    public String getBookingDateFormatted(){
+        DateTimeFormatter commentDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return commentDateFormat.format(bookingDate);
+    }
 }

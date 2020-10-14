@@ -17,15 +17,12 @@
                 <div class="container">
                     <div class="row">
                         <div class="col d-flex flex-row">
-                            <div class="phone">+45 345 3324 56789</div>
                             <div class="social">
-                                <ul class="social_list">
-                                    <li class="social_list_item"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                                    <li class="social_list_item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                    <li class="social_list_item"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li class="social_list_item"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
-                                    <li class="social_list_item"><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
-                                    <li class="social_list_item"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <ul class="social_list" style="padding-top: .4em;">
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="${pageContext.request.contextPath}">trang chủ</a></li>
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="about.html">giới thiệu</a></li>
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="offers.html">ưu đãi</a></li>
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="contact.html">liên hệ</a></a></li>
                                 </ul>
                             </div>
                             <div class="content_search ml-lg-0 ml-auto">
@@ -46,34 +43,9 @@
                     </div>
                 </div>		
             </div>
-
-            <!-- Main Navigation -->
-
-            <nav class="main_nav">
-                <div class="container">
-                    <div class="row">
-                        <div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
-                            <div class="logo_container">
-                                <div class="logo"><a href="${pageContext.request.contextPath}"><img src="<c:url value="/resources/images/logo.png" />" alt="">hotel booking</a></div>
-                            </div>
-                            <div class="main_nav_container ml-auto">
-                                <ul class="main_nav_list">
-                                    <li class="main_nav_item"><a href="${pageContext.request.contextPath}">trang chủ</a></li>
-                                    <li class="main_nav_item"><a href="about.html">giới thiệu</a></li>
-                                    <li class="main_nav_item"><a href="offers.html">ưu đãi</a></li>
-                                    <li class="main_nav_item"><a href="contact.html">liên hệ</a></li>
-                                </ul>
-                            </div>
-                            <div class="content_search ml-lg-0 ml-auto">
-
-                            </div>
-                            <div class="hamburger">
-                                <i class="fa fa-bars trans_200"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>	
-            </nav>
+            <div class="hamburger">
+                <i class="fa fa-bars trans_200"></i>
+            </div>
         </header>
         <!-- menu repository-->
         <div class="menu trans_500">

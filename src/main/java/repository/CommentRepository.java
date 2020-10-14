@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface CommentRepository extends CrudRepository<CommentEntity,Integer>{
     @Query(value = "SELECT cm FROM CommentEntity cm WHERE cm.hotel.name = :name")
     List<CommentEntity> findCommentByHotelName(@Param("name") String name);
+    
+    @Query(value = "SELECT cm FROM CommentEntity cm WHERE cm.users.id = ?1")
+    List<CommentEntity> findCommentByUserId(@Param("id") int id);
 }

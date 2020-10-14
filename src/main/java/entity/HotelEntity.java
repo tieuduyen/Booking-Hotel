@@ -129,7 +129,7 @@ public class HotelEntity {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
-    }    
+    }
 
     public String getEvaluate() {
         return evaluate;
@@ -138,13 +138,29 @@ public class HotelEntity {
     public void setEvaluate(String evaluate) {
         this.evaluate = evaluate;
     }
-    
+
     public CityEntity getCity() {
         return city;
     }
 
     public void setCity(CityEntity city) {
         this.city = city;
+    }
+
+    public RateEntity getRate() {
+        return rate;
+    }
+
+    public void setRate(RateEntity rate) {
+        this.rate = rate;
+    }
+
+    public List<RoomTypeEntity> getRoomTypeList() {
+        return roomTypeList;
+    }
+
+    public void setRoomTypeList(List<RoomTypeEntity> roomTypeList) {
+        this.roomTypeList = roomTypeList;
     }
 
     public List<ServiceEntity> getServiceList() {
@@ -161,24 +177,6 @@ public class HotelEntity {
 
     public void setCommentList(List<CommentEntity> commentList) {
         this.commentList = commentList;
-    }
-
-    public List<RoomTypeEntity> getRoomTypeList() {
-        return roomTypeList;
-    }
-
-    public void setRoomTypeList(List<RoomTypeEntity> roomTypeList) {
-        this.roomTypeList = roomTypeList;
-    }
-
-
-    public RateEntity getRate() {
-        return rate;
-    }
-
-    public void setRate(RateEntity rate) {
-        this.rate = rate;
-    }
-    
-    
+    } 
+  
 }

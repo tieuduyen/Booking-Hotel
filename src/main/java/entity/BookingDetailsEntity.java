@@ -1,7 +1,9 @@
 
 package entity;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -100,9 +102,7 @@ public class BookingDetailsEntity {
     public void setBooking(BookingEntity booking) {
         this.booking = booking;
     }
-
-
-
+    
     public List<ServiceDetailsEntity> getServiceDetailsList() {
         return serviceDetailsList;
     }
@@ -119,4 +119,28 @@ public class BookingDetailsEntity {
         this.room = room;
     }  
     
+    public String getPriceFormatted() {
+        NumberFormat numberFormatter = NumberFormat.getNumberInstance();
+        return numberFormatter.format(price);
+    }
+    
+    public String getCheckInDateFormatted(){
+        DateTimeFormatter commentDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return commentDateFormat.format(checkInDate);
+    }
+    
+    public String getCheckOutDateFormatted(){
+        DateTimeFormatter commentDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return commentDateFormat.format(checkOutDate);
+    }
+        
+    public double getTotalPrice(){
+        double sum = 0;
+        for(int i = 1; i <= getPrice(); i++)
+        {
+            sum = sum + i;
+            //sum += i;
+        }
+        return getTotalPrice();
+    }
 }
