@@ -169,7 +169,7 @@
     $next: breakpoint-next($breakpoint, $grid-breakpoints);
     $infix: breakpoint-infix($next, $grid-breakpoints);
 
-    &#{$infix} {
+    #{$infix} {
       @include media-breakpoint-down($breakpoint) {
         display: block;
         width: 100%;
@@ -182,7 +182,5 @@
           border: 0;
         }
       }
-    }
-  }
-}
+    }}}
 

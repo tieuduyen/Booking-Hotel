@@ -86,7 +86,7 @@
                                                     <li class="">Mail: <strong>${hotel.email}</strong></li>
                                                 </ul>
                                                 <p class="offers_text" style="overflow: hidden;verflow: ellipsis;line-height: 25px;-webkit-line-clamp: 3;display: -webkit-box;-webkit-box-orient: vertical;">${hotel.introduction}</p>
-                                                <div class="button book_button"><a href="${pageContext.request.contextPath}/hotel/${hotel.name}">book<span></span><span></span><span></span></a></div>
+                                                <div class="button book_button"><a href="${pageContext.request.contextPath}/hotel/${hotel.name}">see more<span></span><span></span><span></span></a></div>
                                                 <div class="offer_reviews">
                                                     <c:if test="${hotel.evaluate == 10.0}">
                                                         <div class="offer_reviews_content">

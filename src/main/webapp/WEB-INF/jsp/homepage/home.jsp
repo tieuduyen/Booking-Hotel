@@ -115,9 +115,11 @@
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="offers_image_container">
-                                            <!-- Image by https://unsplash.com/@kensuarez -->
+                                            <!-- Image by https://unsplash.com/@kensuarez -->  
                                             <div class="offers_image_background" style="background-image:url(<c:url value="/resources/images/${roomType.images}"/>) ; height: 18em;"></div>
-                                            <div class="offer_name"><a href="#"><p style="color: white;font-size: 17px;">${roomType.hotel.city.name}</p></a></div>
+                                            <div class="offer_name"><a href="${pageContext.request.contextPath}/hotel/${roomType.hotel.name}">
+                                                    <p style="color: white;font-size: 17px;">${roomType.hotel.city.name}</p>
+                                                </a></div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -130,7 +132,7 @@
                                                 <i></i>
                                                 <i></i>
                                             </div>
-                                            <p class="offers_text" style="overflow: hidden;verflow: ellipsis;line-height: 25px;-webkit-line-clamp: 3;display: -webkit-box;-webkit-box-orient: vertical;">${roomType.descriptions}</p>
+                                            <p class="offers_text" style="overflow: hidden;verflow: ellipsis;line-height: 25px;-webkit-line-clamp: 4;display: -webkit-box;-webkit-box-orient: vertical;">${roomType.descriptions}</p>
 
                                             <div class="offers_link"><a href="offers.html">read more</a></div>
                                         </div>

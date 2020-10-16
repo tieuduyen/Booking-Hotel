@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="mvc" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,6 +23,41 @@
             <div class="site-section">
                 <div class="container">
                     <div class="row">
+                        <div class="col-md-7">
+                            <!-- check booking-->
+                            <!-- price details-->
+                            <!-- infor-->
+                            <h2 class="h3 mb-3 text-black">Information of customer:</h2>
+                            <div class="p-3 p-lg-5 border">
+                                <mvc:form modelAttribute="user" action="continue" method="post" style="width: 100%;" >
+                                    <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="name" class="text-black">Customer Name: <span
+                                                class="text-danger">*</span></label>
+                                        <mvc:input type="text" path="name" required="true" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="phone" class="text-black">Phone: <span class="text-danger">*</span></label>
+                                        <mvc:input type="text" path="phone" required="true" class="form-control"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="text-black">Email: <span class="text-danger">*</span></label>
+                                        <mvc:input type="text" class="form-control" path="email" required="true"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="c_order_notes" class="text-black">Order Notes</label>
+                                    <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
+                                              placeholder="Write your notes here..."></textarea>
+                                </div>
+                                
+                                    <input class="btn btn-primary btn-lg py-3 btn-block"" type="submit" value="Continue">
+
+                                </mvc:form>
+                            </div><br>
+                        </div>
                         <div class="col-md-5 mb-5 mb-md-0">
                             <!-- infor of hotel-->
                             <c:forEach var="cart" items="${cart.bookingDetailsList}" begin="0" end="0">
@@ -41,46 +77,13 @@
                                     <div class="form-group">
                                         <h4>Email: <strong>${cart.room.roomType.hotel.email}</strong></h4>
                                     </div>
-                                </div>
+                                
                             </c:forEach><br>
-                            <!-- infor-->
-                            <h2 class="h3 mb-3 text-black">Information of customer:</h2>
-                            <div class="p-3 p-lg-5 border">
-                                <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="c_companyname" class="text-black">Customer Name: 
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="c_companyname" name="c_companyname" value="${users.name}" style="font-size: 15px; color: black;">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="c_fname" class="text-black">Phone: <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_fname" name="c_fname" value="${users.phone}" style="font-size: 15px; color: black;">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="c_lname" class="text-black">Email: <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="c_lname" name="c_lname" value="${users.email}" style="font-size: 15px; color: black;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="c_order_notes" class="text-black">Order Notes</label>
-                                    <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
-                                              placeholder="Write your notes here..."></textarea>
-                                </div>
-                            </div><br>   
-                        </div>
 
-                        <div class="col-md-7">
-                            <!-- check booking-->
-                            <!-- price details-->
-                            <h2 class="h3 mb-3 text-black">Price Details:</h2>
-                            <div class="p-3 p-lg-5 border">
                                 <table class="table site-block-order-table mb-5">
                                     <thead>
                                     <th>Room Type</th>
-                                    <th>Price(PerNight)</th>
+                                    <th>Price</th>
                                     <th>Number Of Rooms</th>
                                     <th>Total</th>
                                     </thead>
@@ -88,16 +91,23 @@
                                         <c:set var="total" value="${0}"></c:set>
                                         <c:set var="totalCart" value="${0}"></c:set>
                                         <c:forEach var="cart" items="${cart.bookingDetailsList}">
-                                            <c:set var="total" value="${cart.id * cart.room.roomType.price}"></c:set>
+                                            <c:set var="total" value="${cart.quantity * cart.room.roomType.price}"></c:set>
                                             <c:set var="totalCart" value="${totalCart + total}"></c:set>
-                                            <tr>
-                                                <td>${cart.room.roomType.name}</td>
+                                                <tr>
+                                                    <td>${cart.room.roomType.name}</td>
                                                 <td>${cart.room.roomType.priceFormatted}</td>
                                                 <td>
-                                                    <input type="number" name="id" value="${cart.id}" id="id" style="width: 30px;" min="1" max="${cart.room.roomType.quantity}">                               
+                                                    <form action="${pageContext.request.contextPath}/update" method="post">
+                                                        <input type="hidden" name="id" value="${cart.room.roomType.id}">
+                                                        <input type="number" name="quantity" value="${cart.quantity}" id="quantity" style="width: 43px;">
+                                                        <input type="submit" value="Update">
+                                                    </form>
                                                 </td>
                                                 <td>${total}</td>
+                                                <td><a href="${pageContext.request.contextPath}/remove/${cart.room.roomType.id}">Delete</a></td>
                                             </tr>
+
+
                                         </c:forEach>
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Booking Total</strong></td>
@@ -107,14 +117,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div class="form-group">
-                                    <button class="btn btn-primary btn-lg py-3 btn-block">Continue</button>
-                                </div>
+                                        <a href="${pageContext.request.contextPath}/payment">payment</a>
                             </div>
                         </div>
-
                     </div>
-                    <!-- </form> -->
                 </div>
             </div>
         </div>

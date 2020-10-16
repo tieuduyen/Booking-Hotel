@@ -28,4 +28,5 @@ public interface RoomRepository extends CrudRepository<RoomEntity, Integer> {
             + "where rt.hotelID = ?1 and "
             + "((checkInDate between ?2 and ?3) or(checkOutDate between ?2 and ?3))", nativeQuery = true)
     int getNumberOfRoomUsing(int hotelID, LocalDate checkIn, LocalDate checkOut);
+
 }

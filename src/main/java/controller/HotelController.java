@@ -101,6 +101,7 @@ public class HotelController {
         return "viewpage/view-hotel-by-city";
     }
 
+    
     // List TypeRoom By Hotel
     @RequestMapping(value = "/hotel/{name}", method = RequestMethod.GET)
     public String showRoomTypeByHotel(@PathVariable(value = "name") String name, Model model,HttpSession session) {
@@ -108,13 +109,11 @@ public class HotelController {
         model.addAttribute("comment", new CommentEntity());
         List<CommentEntity> commentList = (List<CommentEntity>) commentRepo.findCommentByHotelName(name);
         HotelEntity hotel = hotelRepo.findByName(name);
-        //List<RoomEntity> roomList = (List<RoomEntity>) roomRepo.findRoomTypeByName(name);
         List<RoomTypeEntity> roomTypeList = (List<RoomTypeEntity>) roomTypeRepo.findRoomTypeByName(name);
 
         model.addAttribute("commentList", commentList);
         model.addAttribute("roomTypeList", roomTypeList);
         model.addAttribute("hotel", hotel);
-
         return "viewpage/view-room-by-hotel";
     }
 

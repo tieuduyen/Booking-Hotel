@@ -57,9 +57,15 @@ public class UsersEntity implements Serializable {
 
     @Column(name = "Password")
     private String password;
+    
+    @Column(name = "NoopPassword")
+    private String noopPassword;
 
     @Transient
     private String passwordConfirm;
+    
+    @Column(name = "Role")
+    private String role;
 
     @Column(name = "username")
     @Size(min = 3, max = 20)
@@ -67,16 +73,6 @@ public class UsersEntity implements Serializable {
 
     @Column(name = "enabled")
     private boolean enabled;
-    
-    /*
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-    @JoinTable(name = "acc_role_relationship",
-               joinColumns = @JoinColumn(name = "acc_id",
-               referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(
-               name = "acc_role_id",
-               referencedColumnName = "id"))
-    private Set<UserRoleEntity> userRoles;*/
 
     //Implement relationships with CreditCard 1-1
     @OneToOne(mappedBy = "users")
@@ -149,6 +145,14 @@ public class UsersEntity implements Serializable {
         this.password = password;
     }
 
+    public String getNoopPassword() {
+        return noopPassword;
+    }
+
+    public void setNoopPassword(String noopPassword) {
+        this.noopPassword = noopPassword;
+    }
+
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -173,6 +177,14 @@ public class UsersEntity implements Serializable {
         this.enabled = enabled;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
     public CreditCardEntity getCreditCard() {
         return creditCard;
     }
@@ -196,7 +208,6 @@ public class UsersEntity implements Serializable {
     public void setComment(List<CommentEntity> comment) {
         this.comment = comment;
     }
-
 
     public String getBirthDateFormatted() {
         DateTimeFormatter birthDateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");

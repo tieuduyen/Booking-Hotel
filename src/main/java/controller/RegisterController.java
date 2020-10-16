@@ -42,6 +42,9 @@ public class RegisterController {
             HttpServletRequest request, HttpSession session) {
 
         List<UsersEntity> usersList = usersRepo.getAllUsers();
+        
+        users.setNoopPassword(users.getPassword());
+        
         if (result.hasErrors()) {
             return "register/registerPage";
         }
@@ -60,6 +63,7 @@ public class RegisterController {
         users.setPassword(bCryptPasswordEncoder.encode(users.getPassword()));
 
         users.setEnabled(true);
+        users.setRole("ROLE_USER");
         usersRepo.save(users);
         session.setAttribute("users", users);
 

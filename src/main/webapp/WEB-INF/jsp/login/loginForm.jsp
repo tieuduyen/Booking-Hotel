@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password"><i class="glyphicon glyphicon-lock"></i></label>
-                                <input type="password" name="password" id="your_pass" placeholder="Password"/>
+                                <input type="password" name="noopPassword" id="your_pass" placeholder="Password"/>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>

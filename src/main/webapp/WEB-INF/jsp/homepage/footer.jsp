@@ -47,11 +47,11 @@
                                 </li>
                                 <li class="contact_info_item d-flex flex-row">
                                     <div><div class="contact_info_icon"><img src="<c:url value="/resources/images/message.svg" />" alt=""></div></div>
-                                    <div class="contact_info_text"><a href="mailto:contactme@gmail.com?Subject=Hello" target="_top">contactme@gmail.com</a></div>
+                                    <div class="contact_info_text"><a target="_top">contactme@gmail.com</a></div>
                                 </li>
                                 <li class="contact_info_item d-flex flex-row">
                                     <div><div class="contact_info_icon"><img src="<c:url value="/resources/images/planet-earth.svg" />" alt=""></div></div>
-                                    <div class="contact_info_text"><a href="https://colorlib.com">www.colorlib.com</a></div>
+                                    <div class="contact_info_text">www.colorlib.com</div>
                                 </li>
                             </ul>
                         </div>
