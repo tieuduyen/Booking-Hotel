@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 30, 2020 lúc 04:25 AM
+-- Thời gian đã tạo: Th10 16, 2020 lúc 03:40 AM
 -- Phiên bản máy phục vụ: 10.4.13-MariaDB
 -- Phiên bản PHP: 7.4.8
 
@@ -56,22 +56,31 @@ CREATE TABLE `booking` (
   `BookingDate` date DEFAULT NULL,
   `Amount` double DEFAULT NULL,
   `CreditCardID` int(11) DEFAULT NULL,
-  `UserID` int(11) DEFAULT NULL
+  `UserID` int(11) DEFAULT NULL,
+  `Status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `booking`
 --
 
-INSERT INTO `booking` (`BookingID`, `BookingDate`, `Amount`, `CreditCardID`, `UserID`) VALUES
-(1, '2020-09-10', 2000000, 1, 1),
-(2, '2019-05-05', 4000000, 1, 1),
-(3, '2020-06-10', 1000000, 1, 1),
-(4, '2018-06-30', 8000000, 1, 1),
-(5, '2020-08-30', 8000000, 1, 1),
-(6, '2020-08-30', 8000000, 1, 1),
-(7, '2020-08-30', 8000000, 1, 1),
-(8, '2020-08-30', 8000000, 1, 1);
+INSERT INTO `booking` (`BookingID`, `BookingDate`, `Amount`, `CreditCardID`, `UserID`, `Status`) VALUES
+(1, '2020-09-10', 2000000, 1, 1, 'Pending'),
+(2, '2019-05-05', 4000000, 1, 1, 'Processed'),
+(3, '2020-06-10', 1000000, 1, 1, 'Processed'),
+(4, '2018-06-30', 8000000, 1, 1, 'Processed'),
+(5, '2020-08-30', 8000000, 1, 1, 'Processed'),
+(6, '2020-08-30', 8000000, 1, 1, 'Processed'),
+(7, '2020-08-30', 8000000, 1, 1, 'Processed'),
+(8, '2020-08-30', 8000000, 1, 1, 'Cancelled'),
+(9, '2020-10-10', 999999, 79, 79, 'Pending'),
+(10, '2020-10-11', 888888, 80, 80, 'Cancelled'),
+(11, '2020-10-11', 777777, 80, 80, 'Cancelled'),
+(12, '2020-10-12', 555555, 82, 82, 'Pending'),
+(13, '2020-10-12', 444444, 83, 83, 'Pending'),
+(14, '2020-10-13', 333333, 85, 85, 'Pending'),
+(15, '2020-10-13', 111111, 86, 86, 'Cancelled'),
+(16, '2020-10-08', 111111, 88, 88, 'Cancelled');
 
 -- --------------------------------------------------------
 
@@ -86,23 +95,35 @@ CREATE TABLE `bookingdetails` (
   `CheckInDate` date DEFAULT NULL,
   `CheckOutDate` date DEFAULT NULL,
   `BookingID` int(11) DEFAULT NULL,
-  `RoomID` int(11) DEFAULT NULL
+  `RoomID` int(11) DEFAULT NULL,
+  `Quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `bookingdetails`
 --
 
-INSERT INTO `bookingdetails` (`BookingDetailsID`, `NumberOfPeople`, `Price`, `CheckInDate`, `CheckOutDate`, `BookingID`, `RoomID`) VALUES
-(1, 2, 300000, '2020-09-07', '2020-09-09', 1, 1),
-(2, 3, 400000, '2020-09-07', '2020-09-09', 1, 2),
-(3, 4, 500000, '2020-09-07', '2020-09-09', 1, 3),
-(4, 1, 200000, '2016-09-07', '2020-09-09', 1, 4),
-(5, 2, 200000, '2016-09-07', '2020-09-09', 5, 5),
-(6, 5, 200000, '2016-09-07', '2020-09-09', 6, 6),
-(7, 6, 200000, '2016-09-07', '2020-09-09', 7, 2),
-(8, 2, 200000, '2016-09-07', '2020-09-09', 8, 4),
-(9, 2, 200000, '2016-09-07', '2020-09-09', 8, 8);
+INSERT INTO `bookingdetails` (`BookingDetailsID`, `NumberOfPeople`, `Price`, `CheckInDate`, `CheckOutDate`, `BookingID`, `RoomID`, `Quantity`) VALUES
+(1, 2, 300000, '2020-09-07', '2020-09-09', 1, 1, 2),
+(2, 3, 400000, '2020-09-07', '2020-09-09', 1, 2, 2),
+(3, 4, 500000, '2020-09-07', '2020-09-09', 1, 3, 2),
+(4, 1, 200000, '2016-09-07', '2020-09-09', 1, 4, 2),
+(5, 2, 200000, '2016-09-07', '2020-09-09', 5, 5, 2),
+(6, 5, 200000, '2016-09-07', '2020-09-09', 6, 6, 2),
+(7, 6, 200000, '2016-09-07', '2020-09-09', 7, 2, 2),
+(8, 2, 200000, '2016-09-07', '2020-09-09', 8, 4, 2),
+(9, 2, 200000, '2016-09-07', '2020-09-09', 8, 8, 2),
+(10, 2, 999999, '2020-10-15', '2020-10-16', 9, 1, 2),
+(11, 2, 400000, '2020-10-15', '2020-10-16', 10, 1, 2),
+(12, 3, 488888, '2020-10-15', '2020-10-16', 10, 1, 2),
+(13, 2, 555555, '2020-10-15', '2020-10-16', 12, 2, 2),
+(14, 3, 666666, '2020-10-15', '2020-10-16', 12, 3, 2),
+(15, 1, 100000, '2020-10-15', '2020-10-16', 13, 1, 2),
+(16, 2, 200000, '2020-10-15', '2020-10-16', 13, 3, 2),
+(17, 3, 111111, '2020-10-15', '2020-10-16', 14, 4, 2),
+(18, 2, 222222, '2020-10-15', '2020-10-16', 14, 2, 2),
+(19, 2, 111111, '2020-10-15', '2020-10-16', 15, 1, 2),
+(20, 3, 111111, '2020-10-15', '2020-10-16', 16, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -151,8 +172,12 @@ CREATE TABLE `comment` (
 --
 
 INSERT INTO `comment` (`CommentID`, `CommentDate`, `Rate`, `Content`, `UserID`, `HotelID`) VALUES
-(1, '2020-09-10', 5, 'Good', 2, 1),
-(2, '2020-09-10', 5, 'Good', 2, 1);
+(1, '2020-10-05', 10, 'Very Good', 1, 1),
+(2, '2020-10-05', 9.6, 'Good', 2, 1),
+(23, '2020-10-05', 9, 'phạm văn trực', 51, 1),
+(33, '2020-10-12', 9.2, 'Green Hotel', 84, 2),
+(34, '2020-10-12', 9.5, 'Green Hotel Good', 85, 2),
+(35, '2020-10-13', 9.7, 'aa', 88, 1);
 
 -- --------------------------------------------------------
 
@@ -174,7 +199,15 @@ CREATE TABLE `creditcard` (
 --
 
 INSERT INTO `creditcard` (`CreditCardID`, `CreditCardType`, `CreditCardNumber`, `CardholdersName`, `ExpirationDate`, `Surplus`) VALUES
-(1, 'Visa', '1111-2222-3333-4444', 'Phạm Văn Trực', '2020-12-30', 40000000);
+(1, 'Visa', '1111-2222-3333-4444', 'Phạm Văn Trực', '2020-12-30', 40000000),
+(79, 'MasterCard', '13123-13123-13123', 'Nguyen Van D', '2020-10-09', 4000000),
+(80, 'MasterCard', '1231-1231-1312-1313', 'Le Van E', '2020-10-10', 1000000),
+(82, 'Visa', '1111-2222-3333-4444', 'Nguyen Van E', '2021-01-11', 4000000),
+(83, 'MasterCard', '1111-222-33-41311', 'Le Van B', '2021-07-11', 4000000),
+(84, 'Visa', '1111-2222-3333-4444', 'Le Thi G', '2021-01-10', 4000000),
+(85, 'MasterCard', '111-222-333-444', 'Le Thi A', '2021-06-12', 4000000),
+(86, 'MasterCard', '111-222-333-444', 'Le Van K', '2021-10-27', 4000000),
+(88, 'MasterCard', '111-222-333-34', 'Le van Z', '2022-09-13', 4000000);
 
 -- --------------------------------------------------------
 
@@ -272,7 +305,7 @@ INSERT INTO `room` (`RoomID`, `RoomTypeID`, `RoomName`) VALUES
 CREATE TABLE `roomtype` (
   `RoomTypeID` int(11) NOT NULL,
   `RoomTypeName` varchar(50) DEFAULT NULL,
-  `Descriptions` varchar(50) DEFAULT NULL,
+  `Descriptions` longtext DEFAULT NULL,
   `Size` varchar(20) DEFAULT NULL,
   `RoomImages` varchar(50) DEFAULT NULL,
   `Price` double DEFAULT NULL,
@@ -285,14 +318,14 @@ CREATE TABLE `roomtype` (
 --
 
 INSERT INTO `roomtype` (`RoomTypeID`, `RoomTypeName`, `Descriptions`, `Size`, `RoomImages`, `Price`, `Quantity`, `HotelID`) VALUES
-(1, 'STANDARD', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_standard.jpg', 500000, 99, 1),
-(2, 'SUPERIOR', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_superior.jpg', 600000, 99, 1),
-(3, 'DELUXE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_deluxe.jpg', 900000, 99, 1),
-(4, 'LUXURY', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_luxury.jpg', 1000000, 99, 1),
-(5, 'SUPPERIOR DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 400000, 99, 3),
-(6, 'SUPPERIOR TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 700000, 59, 3),
-(7, 'DELUXE DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1000000, 99, 3),
-(8, 'DELUXE TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'anh1.png', 1500000, 99, 3);
+(1, 'STANDARD', 'Standard - phòng tiêu chuẩn trong khách sạn, là loại phòng đơn giản nhất với những trang bị tối thiểu, có diện tích nhỏ, ở tầng thấp, không có view hoặc view không đẹp. Đây là loại phòng có mức giá thấp nhất trong khách sạn. Một số khách sạn sẽ không có loại phòng standard vì tất cả các phòng đều có view đẹp và được trang bị những thiết bị tiện nghi nhất.', '2 nguoi', 'hachico_standard.jpg', 500000, 99, 1),
+(2, 'SUPERIOR', 'Đây là loại phòng có chất lượng cao hơn STD với diện tích lớn hơn, được trang bị nhiều trang thiết bị tiện nghi, có view đẹp. Vì chất lượng phòng tốt hơn nên mức giá thuê phòng Superior cũng sẽ cao hơn STD.', '2 nguoi', 'hachico_superior.jpg', 600000, 99, 1),
+(3, 'DELUXE', 'Loại phòng này thường ở trên tầng cao với chất lượng tốt hơn phòng Superior. Phòng Deluxe có diện tích rộng, có tầm nhìn đẹp với các trang thiết bị cao cấp và vì thế mà mức giá phòng DLX sẽ cao hơn SUP.', '2 nguoi', 'hachico_deluxe.jpg', 900000, 99, 1),
+(4, 'LUXURY', 'Phòng LUXURY được xem là sự lựa chọn hoàn hảo cho quý khách nếu quý khách là người yêu thích thiên nhiên và luôn mơ ước được trải qua một kỳ nghỉ sang trọng. Phòng rộng rãi diện tích 32m2, bể tắm nằm sang trọng, ban công thoáng mát. Các phòng đều được trang bị cơ sở vật chất hiện đại, 1 giường lớn hoặc 2 giường nhỏ và trang thiết bị đạt tiêu chuẩn quốc tế, chắc chắn sẽ mang đến sự hài lòng cho quý khách.', '2 nguoi', 'hachico_luxury.jpg', 1000000, 99, 1),
+(5, 'SUPPERIOR DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_luxury.jpg', 400000, 99, 2),
+(6, 'SUPPERIOR TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_luxury.jpg', 700000, 59, 2),
+(7, 'DELUXE DOUBLE', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_luxury.jpg', 1000000, 99, 2),
+(8, 'DELUXE TWINS', 'Phòng nghỉ thông thoáng, cao cấp sang trọng', '2 nguoi', 'hachico_luxury.jpg', 1500000, 99, 2);
 
 -- --------------------------------------------------------
 
@@ -357,17 +390,28 @@ CREATE TABLE `users` (
   `Password` longtext DEFAULT NULL,
   `enabled` tinyint(4) NOT NULL DEFAULT 1,
   `username` varchar(50) DEFAULT NULL,
-  `Role` varchar(50) DEFAULT NULL
+  `NoopPassword` longtext DEFAULT NULL,
+  `Role` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`UserID`, `Email`, `Name`, `Phone`, `Sex`, `BirthDate`, `Password`, `enabled`, `username`, `Role`) VALUES
-(1, 'truckt12a3@gmail.com', 'Phạm Văn Trực', '0123456789', 'Nam', '2000-08-19', '$2a$10$gLHIEMOEUrvC.cjlWE2Kqu2hRJvFOqDA2b.1yajmwMtMKZvOhh7eS', 1, 'truc19082000', 'ROLE_USER'),
-(2, 'nva@gmail.com', 'Nguyen Van A', '034234234', 'Nam', '1999-07-18', '$2a$10$mcgrQS.r9YTt5nQWdorpmeY0y0KXWRhok6BPIHdiPdEu9.bE21c5W', 1, 'nvanvan', 'ROLE_USER'),
-(13, 'truckt12a34@gmail.com', NULL, NULL, NULL, NULL, '$2a$10$TaVnlsoYZAIfUAh3rCdG6O1zACWZXRCB5onXxNZeyl//yjohLohHy', 1, 'phamvantruc', 'ROLE_USER');
+INSERT INTO `users` (`UserID`, `Email`, `Name`, `Phone`, `Sex`, `BirthDate`, `Password`, `enabled`, `username`, `NoopPassword`, `Role`) VALUES
+(1, 'truckt12a3@gmail.com', 'Phạm Văn Trực', '0123456789', 'Nam', '2000-08-19', '$2a$10$gLHIEMOEUrvC.cjlWE2Kqu2hRJvFOqDA2b.1yajmwMtMKZvOhh7eS', 1, 'truc19082000', '12345', 'ROLE_ADMIN'),
+(2, 'nva@gmail.com', 'Nguyen Van A', '034234234', 'Nam', '1999-07-18', '$2a$10$mcgrQS.r9YTt5nQWdorpmeY0y0KXWRhok6BPIHdiPdEu9.bE21c5W', 1, 'nvanvan', '12345', 'ROLE_USER'),
+(51, 'ltc@gmail.com', 'Le Thi C', '023123122222', 'Nữ', NULL, '$2a$10$XaQMbHoAOqGXwYTDZXvXmutmmVrml2FPFl2nIAdMZEeinzXeznO7i', 1, 'tutorialspon', '12345', 'ROLE_USER'),
+(52, 'truckt12a34@gmail.com', 'Pham Van Truc', '023123122222', 'Nữ', NULL, '$2a$10$j4wbNHP94DqN3VQRFafSWeDWbWs4LW89oz7aGp4GhBblDMckUd2Re', 1, 'phamvantruc', '12345', 'ROLE_USER'),
+(79, 'nvd@gmail.com', 'Nguyen Van D', '0123456577', 'Nam', '2020-10-09', '$2a$10$m1eTREpzMY1SJVEDk1oF1.CDD8VIf7xfSyhHYThLfVM9KlX2BhirS', 1, 'nguyenvand', '12345', 'ROLE_USER'),
+(80, 'lve@gmail.com', 'Le Van E', '01213123123', 'Nam', '2000-08-18', '$2a$10$WrumPUyySAa.4tTley5G3.bcbc16j5e6x..chVYF/N.ZuSExkmYSm', 1, 'lve', '12345', 'ROLE_USER'),
+(82, 'nve@gmail.com', 'Nguyen Van E', '0123456577', 'Nam', '2000-08-18', '$2a$10$Lj8Q8192QInhxVRH1BB0VO.5AXSn9F55ahNSMmvIWlEOZRBZ6soBu', 1, 'nguyenvane', '12345', 'ROLE_USER'),
+(83, 'nvc@gmail.com', 'Le Van B', '0123456577', 'Nam', '2020-10-13', '$2a$10$HbtmeY5uXTPkqF/nMMF4zueVbqjmy2UgWVBEe.rSNmNWhcHf6aabG', 1, 'levanb', '12345', 'ROLE_USER'),
+(84, 'nvd@gmail.com', 'Le Thi G', '0123456577', 'Nữ', '2000-10-09', '$2a$10$CSrE4jttu1xBn3tf84HC/eUNqT8opt8c5G.NRJ/Oa75tJUWF.YVga', 1, 'lethig', '12345', 'ROLE_USER'),
+(85, 'lta@gmail.com', 'Le Thi A', '0123456577', 'Nữ', '2000-11-12', '$2a$10$G5fFe9VHXHXDXxULm7/LM.ASu9XciBuLxuS96skD4kpn3dCKEb1yC', 1, 'lethia', '12345', 'ROLE_USER'),
+(86, 'lvk@gmail.com', 'Le Van K', '0123456577', 'Nam', '2000-10-13', '$2a$10$2bdsyJr3JEqU5gS2FWT9Nu2iFnMy19xYRaL0bcBoJhufEL5CYDv3.', 1, 'levank', '12345', 'ROLE_USER'),
+(88, 'lvz@gmail.com', 'Le Van Z', '0123456577', 'Nam', '2020-10-13', '$2a$10$XYg0c1ZedWQh00tZVsxjj.rNu4N5LLjVocWHxB9UKLpYALo5mBika', 1, 'levanz', '12345', 'ROLE_USER'),
+(93, 'bbbb@gmail.com', NULL, NULL, NULL, NULL, '$2a$10$uy.nyLyr.7/vsMabQ/fAv.MAeQvNHecb4CXHeN5Fjc3Ml1RQfDkvG', 1, 'bbbb', '123', 'ROLE_USER');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -471,31 +515,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `BookingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `bookingdetails`
 --
 ALTER TABLE `bookingdetails`
-  MODIFY `BookingDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `BookingDetailsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `city`
 --
 ALTER TABLE `city`
-  MODIFY `CityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `CityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT cho bảng `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `CommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT cho bảng `creditcard`
---
-ALTER TABLE `creditcard`
-  MODIFY `CreditCardID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CommentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT cho bảng `hotel`
@@ -513,7 +551,7 @@ ALTER TABLE `rate`
 -- AUTO_INCREMENT cho bảng `room`
 --
 ALTER TABLE `room`
-  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `RoomID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `roomtype`
@@ -537,7 +575,7 @@ ALTER TABLE `slide`
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

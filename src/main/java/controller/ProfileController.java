@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import repository.BookingDetailsRepository;
 import repository.BookingRepository;
 import repository.CommentRepository;
@@ -43,7 +44,7 @@ public class ProfileController {
     
     @RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
     public String showProfilePage(Model model, 
-                                 @PathVariable(value = "id") int id ) {
+                                 @PathVariable(value = "id") int id) {
 
         UsersEntity users = usersRepo.findById(id);
         CreditCardEntity creditCard = creditCardRepo.findById(id);
@@ -114,15 +115,10 @@ public class ProfileController {
     }
     
     //cancel booking
-    @RequestMapping(value = "/cancel-booking/{id}", method = RequestMethod.POST)
-    public String cancelBooking(@PathVariable(value = "id") int id,
-                                BookingEntity booking, BindingResult result) {
+    @RequestMapping(value = "/cancel-booking/{id}", method = RequestMethod.GET)
+    public String cancelBooking(@PathVariable(value = "id") int id, HttpSession session) {
 
-        if (result.hasErrors()) {
-            booking.setId(id);
-            return "profile/accountPage";
-        }
-
+        BookingEntity booking = bookingRepo.findById(id);
         booking.setStatus("Cancelled");
         bookingRepo.save(booking);
 

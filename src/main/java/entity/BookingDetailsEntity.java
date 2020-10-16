@@ -27,6 +27,7 @@ public class BookingDetailsEntity {
     @Column(name = "NumberOfPeople")
     private int numberOfPeople;
     
+    @Column(name = "Quantity")
     private int quantity;
         
     @Column(name = "Price")

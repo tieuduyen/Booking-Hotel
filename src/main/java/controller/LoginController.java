@@ -31,12 +31,12 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam(name = "email") String email,
-                            @RequestParam(name = "password") String password,
+                            @RequestParam(name = "noopPassword") String noopPassword,
 		            HttpSession session) {
             
              UsersEntity users = usersRepo.findByEmail(email);
              
-		if(users.getPassword().equals(bCryptPasswordEncoder.encode(password))) {
+		if(users.getNoopPassword().equals(noopPassword) && users.getRole().equals("ROLE_USER")) {
 			session.setAttribute("users", users);
 			return "redirect:/";
 		} else {
@@ -44,25 +44,6 @@ public class LoginController {
 		}
 	}
     
-        /*
-    @RequestMapping(value = "/login")
-    public String validateUser(@RequestParam(name = "email") String email,
-            @RequestParam(name = "password") String password) {
-
-        UsersEntity users = usersRepo.findByEmail(email);
-
-        //String encrytedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        //String encrytedPassword = encrytePassword(password);
-        
-        String encrytedPassword = bCryptPasswordEncoder.encode(password);
-        if (users.getPassword().equals(encrytedPassword)) {
-            return "user/userPage";
-        } else {
-            return "login/loginPage";
-        }
-        //users.getPassword().equals(passwordEncoder.encode(password)) && users.getEmail().equals(email)
-    }
-*/
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.removeAttribute("users");

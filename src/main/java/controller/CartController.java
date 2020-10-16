@@ -110,28 +110,6 @@ public class CartController {
         return "viewpage/continue";     
     }
     
-    /*@RequestMapping(value = "/saveBooking", method = RequestMethod.POST) //update ben action ben editBook.jsp
-    public String saveCheckout(BookingEntity booking,  Model model) {
-        //Save vao bang Orders
-        booking.setBookingDate(LocalDate.now());       
-        BookingEntity newBooking = bookingRepo.save(booking);
-        
-        //Save vao bang Order Details
-        List<BookingDetailsEntity> bookingDetailsList = cart.getBookingDetailsList();
-        for(BookingDetailsEntity bookingDetails : bookingDetailsList){
-            bookingDetails.setBooking(newBooking);
-            bookingDetailsRepo.save(bookingDetails);
-        }
-        
-        //Save vào bảng room
-        List<RoomEntity> roomList = cart.getRoomList();
-        for(RoomEntity room : roomList){
-            room.setBookingDetailsList(bookingDetailsList);
-            roomRepo.save(room);
-        }
-        return "homepage/home"; //goi lai home.jsp
-    }*/
-    
         @RequestMapping(value = "/payment", method = RequestMethod.POST)
     public String payment(BookingEntity booking,Model model){
 

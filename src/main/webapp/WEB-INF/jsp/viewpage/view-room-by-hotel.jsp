@@ -42,7 +42,26 @@
                                                 <div class="offers_price">${roomType.priceFormatted}</div>
                                                 <p class="offers_text" style="overflow: hidden;verflow: ellipsis;line-height: 25px;-webkit-line-clamp: 2;display: -webkit-box;-webkit-box-orient: vertical;">${roomType.descriptions}</p>
                                                 <div><p class="offers_text">Phù hợp cho:<strong>${roomType.size}</strong></p></div>
+                                                <% if (session.getAttribute("users") != null) { %>
                                                 <div class="button book_button" style="background-color: #0069d9;"><a href="${pageContext.request.contextPath}/addToCart/${roomType.id}">Booking<span></span><span></span><span></span></a></div> 
+                                                <% } else { %>
+                                                <div class="button book_button" data-toggle="modal" data-target="#myModal" style="background-color: #0069d9;"><a>Booking<span></span><span></span><span></span></a></div> 
+                                                <div class="modal" id="myModal">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                 <h3 style="text-align: center;">Please
+                                                                     <a href="${pageContext.request.contextPath}/login">Login</a> or 
+                                                                     <a href="${pageContext.request.contextPath}/register">Register</a> to booking!
+                                                                 </h3>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }%>
 
                                             </div>
                                         </div>

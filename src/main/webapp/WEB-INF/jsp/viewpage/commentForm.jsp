@@ -119,17 +119,17 @@
                                 </div>
                                 <div class="col-75">
                                     <mvc:select path="rate" id="rate">
-                                        <option value="10">10.0</option>
-                                        <option value="9.9">9.9</option>
-                                        <option value="9.8">9.8</option>
-                                        <option value="9.7">9.7</option>
-                                        <option value="9.6">9.6</option>
-                                        <option value="9.5">9.5</option>
-                                        <option value="9.4">9.4</option>
-                                        <option value="9.3">9.3</option>
-                                        <option value="9.2">9.2</option>
-                                        <option value="9.1">9.1</option>
-                                        <option value="9.0">9.0</option>
+                                        <mvc:option value="10">10.0</mvc:option>
+                                        <mvc:option value="9.9">9.9</mvc:option>
+                                        <mvc:option value="9.8">9.8</mvc:option>
+                                        <mvc:option value="9.7">9.7</mvc:option>
+                                        <mvc:option value="9.6">9.6</mvc:option>
+                                        <mvc:option value="9.5">9.5</mvc:option>
+                                        <mvc:option value="9.4">9.4</mvc:option>
+                                        <mvc:option value="9.3">9.3</mvc:option>
+                                        <mvc:option value="9.2">9.2</mvc:option>
+                                        <mvc:option value="9.1">9.1</mvc:option>
+                                        <mvc:option value="9.0">9.0</mvc:option>
                                     </mvc:select>
                                 </div>
                             </div>

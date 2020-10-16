@@ -157,7 +157,15 @@
                                                 <td>${booking.id}</td>
                                                 <td>${booking.bookingDateFormatted}</td>
                                                 <td>${booking.amount}</td>
-                                                <td>${booking.status}</td>
+                                                <c:if test="${booking.status == 'Pending'}">   
+                                                    <td style="color: #218838;">${booking.status}</td>
+                                                </c:if>
+                                                <c:if test="${booking.status == 'Cancelled'}">   
+                                                    <td style="color: #FF6347;">${booking.status}</td>
+                                                </c:if>
+                                                <c:if test="${booking.status == 'Processed'}">   
+                                                    <td style="color: mediumaquamarine;">${booking.status}</td>
+                                                </c:if>
                                                 <td><a href="${pageContext.request.contextPath}/cancel-booking/${booking.id}">Cancel</a></td>
                                             </tr>
                                         </c:forEach>
