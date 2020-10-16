@@ -20,65 +20,6 @@
     </head>
     <body>
         <div class="site-wrap" style="background-color: whitesmoke;">
-            <div class="site-section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <!-- check booking-->
-                            <!-- price details-->
-                            <!-- infor-->
-                            <h2 class="h3 mb-3 text-black">Information of customer:</h2>
-                            <div class="p-3 p-lg-5 border">
-                                <mvc:form modelAttribute="user" action="${pageContext.request.contextPath}/continue" method="post" style="width: 100%;" >
-                                    <div class="form-group row">
-                                    <div class="col-md-12">
-                                        <label for="name" class="text-black">Customer Name: <span
-                                                class="text-danger">*</span></label>
-                                        <mvc:input type="text" path="name" required="true" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-md-6">
-                                        <label for="phone" class="text-black">Phone: <span class="text-danger">*</span></label>
-                                        <mvc:input type="text" path="phone" required="true" class="form-control"/>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="email" class="text-black">Email: <span class="text-danger">*</span></label>
-                                        <mvc:input type="text" class="form-control" path="email" required="true"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="c_order_notes" class="text-black">Order Notes</label>
-                                    <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
-                                              placeholder="Write your notes here..."></textarea>
-                                </div>
-                                
-                                    <input class="btn btn-primary btn-lg py-3 btn-block"" type="submit" value="Continue">
-
-                                </mvc:form>
-                            </div><br>
-                        </div>
-                        <div class="col-md-5 mb-5 mb-md-0">
-                            <!-- infor of hotel-->
-                            <c:forEach var="cart" items="${cart.bookingDetailsList}" begin="0" end="0">
-                                <div class="p-3 p-lg-5 border">
-                                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                        <img src="<c:url value="/resources/images/${cart.room.roomType.hotel.images}" />" style="width: 100%; height: 200px; border-radius: 1px solid black;">
-                                        <div class="carousel-caption">
-                                            <h3>${cart.room.roomType.hotel.name}</h3>
-                                        </div>
-                                    </div><br>
-                                    <div class="form-group" style="border-top: 1px solid black;">
-                                        <h4>Address: <strong>${cart.room.roomType.hotel.address}</strong></h4>
-                                    </div>
-                                    <div class="form-group">
-                                        <h4>Phone: <strong>${cart.room.roomType.hotel.phone}</strong></h4>
-                                    </div>
-                                    <div class="form-group">
-                                        <h4>Email: <strong>${cart.room.roomType.hotel.email}</strong></h4>
-                                    </div>
-                                
-                            </c:forEach><br>
 
                                 <table class="table site-block-order-table mb-5">
                                     <thead>

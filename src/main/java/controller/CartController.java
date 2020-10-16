@@ -104,6 +104,8 @@ public class CartController {
     public String next(UsersEntity user,Model model){
         cart.setUser(user);
         
+        
+        
        // model.addAttribute("cart", cart);
         return "viewpage/continue";     
     }
