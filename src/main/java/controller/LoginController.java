@@ -30,23 +30,25 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam(name = "email") String email,
-                            @RequestParam(name = "noopPassword") String noopPassword,
-		            HttpSession session) {
-            
-             UsersEntity users = usersRepo.findByEmail(email);
-             
-		if(users.getNoopPassword().equals(noopPassword) && users.getRole().equals("ROLE_USER")) {
-			session.setAttribute("users", users);
-			return "redirect:/";
-		} else {
-			return "login/loginPage";
-		}
-	}
-    
+    public String login(@RequestParam(name = "email") String email,
+            @RequestParam(name = "noopPassword") String noopPassword,
+            HttpSession session,Model model) {
+
+        UsersEntity users = usersRepo.findByEmail(email);
+
+        if (users.getNoopPassword().equals(noopPassword) && users.getRole().equals("ROLE_USER")) {
+            session.setAttribute("users", users);
+            return "redirect:/";
+        } else {
+            String erroMessage = "Account or password is incorrect";
+                model.addAttribute("erroMesseger", erroMessage);
+            return "login/loginPage";
+        }
+    }
+
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
-		session.removeAttribute("users");
-		return "redirect:/";
-	}
+    public String logout(HttpSession session) {
+        session.removeAttribute("users");
+        return "redirect:/";
+    }
 }
