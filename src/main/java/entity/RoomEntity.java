@@ -32,7 +32,7 @@ public class RoomEntity {
     private RoomTypeEntity roomType;
 
     
-    @OneToMany(mappedBy = "room",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "room",fetch = FetchType.EAGER)
     List<BookingDetailsEntity> bookingDetailsList;
     
     

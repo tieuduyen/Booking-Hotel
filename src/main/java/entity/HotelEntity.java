@@ -43,7 +43,7 @@ public class HotelEntity {
     
     @Column(name="Evaluate")
     private String evaluate;
-    
+
     // n-1 voi bang City
     @ManyToOne
     @JoinColumn(name="CityID")//khóa ngoại 

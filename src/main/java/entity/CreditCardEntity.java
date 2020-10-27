@@ -1,4 +1,3 @@
-
 package entity;
 
 import java.time.LocalDate;
@@ -16,35 +15,38 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="creditCard")
+@Table(name = "creditCard")
 public class CreditCardEntity {
+
     @Id
     @Column(name = "CreditCardID")
     private int id;
-    
+
     @Column(name = "CreditCardType")
     private String creditCardType;
-    
+
     @Column(name = "CreditCardNumber")
     private String creditCardNumber;
-    
+
     @Column(name = "CardholdersName")
     private String cardholdersName;
-    
+
     @Column(name = "ExpirationDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate expirationDate;
-    
+
     @Column(name = "Surplus")
     private Double surplus;
-    
-    
+
+    @Column(name = "CVV")
+    private String cvv;
+
     @OneToOne()
     @PrimaryKeyJoinColumn
     private UsersEntity users;//(1) 
-           
+
     //Setup relationshipss with Payment
-    @OneToMany(mappedBy = "creditCard",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "creditCard", fetch = FetchType.LAZY)
     List<BookingEntity> bookingList;
 
     public CreditCardEntity() {
@@ -113,5 +115,13 @@ public class CreditCardEntity {
     public void setUsers(UsersEntity users) {
         this.users = users;
     }
-    
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
+
 }

@@ -16,48 +16,38 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/booking/css/owl.carousel.min.css" />">
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/booking/css/owl.theme.default.min.css" />">
         <link rel="stylesheet" type="text/css" href="<c:url value="/resources/booking/css/aos.css" />">
-
     </head>
+    <style>
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+    </style>
     <body>
         <div class="site-wrap" style="background-color: whitesmoke;">
             <div class="site-section">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-7">
-                            <!-- check booking-->
-                            <!-- price details-->
-                            <!-- infor-->
-                            <h2 class="h3 mb-3 text-black">Information of customer:</h2>
-                            <div class="p-3 p-lg-5 border">
-                                <mvc:form modelAttribute="user" action="payment" method="post" style="width: 100%;" >
-                                    <div class="form-group row">
-                                        <div class="col-md-12">
-                                            <label for="name" class="text-black">Customer Name: <span
-                                                    class="text-danger">*</span></label>
-                                                <mvc:input type="text" path="name" required="true" class="form-control" value="${users.username}"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-md-6">
-                                            <label for="phone" class="text-black">Phone: <span class="text-danger">*</span></label>
-                                            <mvc:input type="text" path="phone" required="true" class="form-control" value="${users.phone}"/>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="email" class="text-black">Email: <span class="text-danger">*</span></label>
-                                            <mvc:input type="text" class="form-control" path="email" required="true" value="${users.email}"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="c_order_notes" class="text-black">Order Notes</label>
-                                        <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control"
-                                                  placeholder="Write your notes here..."></textarea>
-                                    </div>
-
-                                    <input class="btn btn-primary btn-lg py-3 btn-block" type="submit" value="Continue">
-
-                                </mvc:form>
-                            </div><br>
-                        </div>
                         <div class="col-md-5 mb-5 mb-md-0">
                             <!-- infor of hotel-->
                             <c:forEach var="cart" items="${cart.bookingDetailsList}" begin="0" end="0">
@@ -81,7 +71,16 @@
                                 </c:forEach><br>
 
                                 <table class="table site-block-order-table mb-5">
+
                                     <tbody>
+                                        <tr>
+                                            <td>Customer Name</td>
+                                            <td>${user.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phone</td>
+                                            <td>${user.phone}</td>
+                                        </tr>
                                         <c:set var="total" value="${0}"></c:set>
                                         <c:set var="totalCart" value="${0}"></c:set>
                                         <c:forEach var="cart" items="${cart.bookingDetailsList}">
@@ -92,10 +91,6 @@
                                                     <td>${cart.room.roomType.name}</td>
                                             </tr>
                                             <tr>
-                                                <td>Number Of People</td>
-                                                <td>${cart.numberOfPeople}</td>
-                                            </tr>
-                                            <tr>
                                                 <td>Price</td>
                                                 <td>${cart.room.roomType.priceFormatted}</td>
                                             </tr>
@@ -103,19 +98,60 @@
                                                 <td>Number Of Rooms</td>
                                                 <td>${cart.quantity}</td>
                                             </tr>
-                                            <tr> 
+                                            <tr>
                                                 <td>Total</td>
                                                 <td>${total}</td>
                                             </tr>
                                         </c:forEach>
                                         <tr>
-                                            <td class="text-black font-weight-bold"><strong>Booking Total</strong></td>                                
+                                            <td class="text-black font-weight-bold"><strong>Booking Total</strong></td>
                                             <td class="text-black font-weight-bold"><strong>${totalCart}</strong></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        <div class="col-md-5 mb-5 mb-md-0">
+                            <div class="p-3 p-lg-5 border">
+                                Phương thức thanh toán 
+                                <form action="${pageContext.request.contextPath}/booking" method="post" style="width: 100%;" >
+                                    <button class="accordion" type="button">Thẻ Tín Dụng / Thẻ Ghi Nợ</button>
+                                    <div class="panel">
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label class="text-black">Tên trên thẻ <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" name="cardholdersName" class="form-control" value="${creditCart.cardholdersName}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-12">
+                                                <label class="text-black">Số thẻ tín dụng/thẻ ghi nợ <span
+                                                        class="text-danger">*</span></label>
+                                                <input type="text" name="creditCardNumber"  class="form-control" value="${creditCart.creditCardNumber}"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                                <label for="phone" class="text-black">Ngày hết hạn <span class="text-danger">*</span></label>
+                                                <input type="date" name="expirationDate"  class="form-control" value="${creditCart.expirationDate}"/>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="email" class="text-black">Mã bảo mật CVC<span class="text-danger">*</span></label>
+                                                <input type="password" name="cvv"  class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                            <div style="color: red;">${erroMessage}</div>
+                                    <div class="checkbox">
+                                        <label><input type="checkbox" value="">Thanh toán tại khách sạn</label>
+                                    </div>
+                            </div>
+                            <input class="btn btn-primary btn-lg py-3 btn-block" type="submit" value="booking">
+                        </div>
+                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -125,5 +161,21 @@
         <script src="<c:url value="/resources/booking/js/popper.min.js" />"></script>
         <script src="<c:url value="/resources/booking/js/bootstrap.min.js" />"></script>
         <script src="<c:url value="/resources/booking/js/jquery.magnific-popup.min.js" />"></script>
+        <script>
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                    }
+                });
+            }
+        </script>
     </body>
 </html>

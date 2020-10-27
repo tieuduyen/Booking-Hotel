@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "booking")
@@ -25,15 +26,13 @@ public class BookingEntity {
     private int id;
  
     @Column(name = "BookingDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookingDate;
-    
-    @Column(name = "Amount")
-    private double amount;
     
     @Column(name = "Status")
     private String status;
 
-    @OneToMany(mappedBy = "booking",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "booking",fetch = FetchType.EAGER)
     List<BookingDetailsEntity> bookingDetailsList;
 
     // n-1 voi bang users
@@ -66,15 +65,7 @@ public class BookingEntity {
     public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
     }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
+    
     public String getStatus() {
         return status;
     }

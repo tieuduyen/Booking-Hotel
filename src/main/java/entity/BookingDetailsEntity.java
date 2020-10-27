@@ -27,7 +27,7 @@ public class BookingDetailsEntity {
     @Column(name = "NumberOfPeople")
     private int numberOfPeople;
     
-    @Column(name = "Quantity")
+    @Column(name = "numberOfRoom")
     private int quantity;
         
     @Column(name = "Price")
@@ -39,6 +39,9 @@ public class BookingDetailsEntity {
     @Column(name = "CheckOutDate")
     private LocalDate checkOutDate;
     
+    @Column(name = "paymentMethod")
+    private String paymentMethod;
+    
     // n-1 voi bang Booking
     @ManyToOne
     @JoinColumn(name = "BookingID")//khóa ngoại 
@@ -47,14 +50,20 @@ public class BookingDetailsEntity {
     // 1-n (BookingDetails-ServiceDetails)
     @OneToMany(mappedBy = "bookingDetails",fetch = FetchType.LAZY)
     List<ServiceDetailsEntity> serviceDetailsList;
-    
-    // n-1 voi bang Room
+   // n-1 voi bang Room
     @ManyToOne
     @JoinColumn(name = "RoomID")//khóa ngoại 
     private RoomEntity room;
-
-    
+  
     public BookingDetailsEntity() {
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 
     public int getId() {
@@ -151,7 +160,7 @@ public class BookingDetailsEntity {
         {
             sum = sum + i;
             //sum += i;
-        }
+}
         return getTotalPrice();
     }
 }

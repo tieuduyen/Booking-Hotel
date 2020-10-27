@@ -29,11 +29,11 @@
 
                                 <div class="search_item">
                                     <div>ngày đến</div>
-                                    <input type="date" name="checkIn" class="check_in search_input">
+                                    <input type="date" name="checkIn" class="check_in search_input" required="true">
                                 </div>
                                 <div class="search_item">
                                     <div>ngày đi</div>
-                                    <input type="date"  name="checkOut" class="check_out search_input">
+                                    <input type="date"  name="checkOut" class="check_out search_input" required="true">
                                 </div>
                                 <div class="search_item">
                                     <div>số phòng</div>
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="search_item">
                                     <div>số người</div>
-                                    <select id="people" class="dropdown_item_select search_input">
+                                    <select id="people" class="dropdown_item_select search_input" name="numberOfPeople">
                                         <c:forEach var="number" begin="1" end="20">
                                             <option>${number}</option>
                                         </c:forEach>

@@ -42,9 +42,6 @@ public class UsersEntity implements Serializable {
     @Email
     private String email;
 
-    @Column(name = "Name")
-    private String name;
-
     @Column(name = "phone")
     private String phone;
 
@@ -84,7 +81,7 @@ public class UsersEntity implements Serializable {
 
     @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
     List<CommentEntity> comment;
-
+    
     public UsersEntity() {
 
     }
@@ -104,15 +101,6 @@ public class UsersEntity implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPhone() {
         return phone;
     }

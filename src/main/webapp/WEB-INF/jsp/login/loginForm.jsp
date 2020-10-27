@@ -22,6 +22,7 @@
                     <div class="signin-form">
                         <h2 class="form-title">Sign up</h2>
                         <form action="${pageContext.request.contextPath}/login" method="POST" class="register-form" id="login-form">
+                            <p style="color: red;"> ${erroMesseger}</p>
                             <div class="form-group">
                                 <label for="email"><i class="glyphicon glyphicon-user"></i></label>
                                 <input type="text" name="email" id="your_name" placeholder="Email"/>
@@ -40,22 +41,6 @@
                 </div>
             </div>
         </section>
-        <%--
-<h1>Spring Security Password Encoder</h1>
-<form action="<c:url value="/j_spring_security_check" />" method="post">
-<label>User Name: </label>
-<input type="text" name="username" /><br>
-
-            <label>Password: </label>
-            <input type="password" name="password" /><br>
-
-            <input type="submit" value="Login" />
-            <input type="hidden" name="${_crsf.parameterName}" value="${_crsf.token}"/>
-        </form>
-        <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-            <p stype="color: red">Your username or password is incorrect. Try again.</p>
-        </c:if>   
-        --%>
         <script src="<c:url value="/resources/login_register_css/vendor/jquery/jquery.min.js" />"></script>
         <script src="<c:url value="/resources/login_register_css/js/main.js" />"></script>
     </body>

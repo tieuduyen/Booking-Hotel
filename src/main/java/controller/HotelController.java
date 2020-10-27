@@ -5,33 +5,26 @@ import entity.CityEntity;
 import entity.CommentEntity;
 import entity.HotelEntity;
 import entity.RateEntity;
-import entity.RoomEntity;
 import entity.RoomTypeEntity;
 import entity.SlideEntity;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import repository.AdvantagesRepository;
 import repository.CityRepository;
 import repository.CommentRepository;
 import repository.HotelRepository;
 import repository.RateRepository;
 import repository.RoomRepository;
-import repository.SlideRepository;
 import repository.RoomTypeRepository;
+import repository.SlideRepository;
+
+
 
 @Controller
 public class HotelController {
@@ -60,12 +53,7 @@ public class HotelController {
     @Autowired
     SlideRepository slideRepo;
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
+    
 
     //View City
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -128,30 +116,4 @@ public class HotelController {
         return "viewpage/view-room-details";
     }
 
-    //search
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchCity(@RequestParam(name = "searchText") int cityID, @RequestParam(name = "checkIn") Date checkInDate,
-            @RequestParam(name = "checkOut") Date checkOutDate, @RequestParam(name = "rooms") int rooms, Model model) {
-
-        LocalDate checkIn = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(checkInDate));
-        LocalDate checkOut = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(checkOutDate));
-
-        List<HotelEntity> hotelList = (List<HotelEntity>) hotelRepo.findHotleInCity(cityID);
-        List<HotelEntity> availableHotel = new ArrayList<>();
-
-        for (HotelEntity h : hotelList) {
-            int numberRoomOfHotel = roomTypeRepo.getNumberOfRoomOfHotel(h.getId());
-            int numberOfRoomUsing = roomRepo.getNumberOfRoomUsing(h.getId(), checkIn, checkOut);
-            if (numberRoomOfHotel - numberOfRoomUsing >= rooms) {
-                availableHotel.add(h);
-            }
-        }
-
-        CityEntity city = cityRepo.findById(cityID);
-
-        model.addAttribute("availableHotel", availableHotel);
-        model.addAttribute("city", city);
-
-        return "viewpage/view-hotel-by-city";
-    }
 }

@@ -13,14 +13,15 @@ public interface RoomRepository extends CrudRepository<RoomEntity, Integer> {
 
     @Query(value = "SELECT r FROM RoomEntity r WHERE r.roomType.hotel.name = ?1 group by r.roomType.id")
     List<RoomEntity> findRoomTypeByName(@Param("name") String name);
-    
+
     @Query(value = "select r.*"
             + "from Room r"
             + "Join RoomType rt On r.RoomTypeID=rt.RoomTypeID"
             + "Join Hotel h On rt.hotelID=h.hotelID", nativeQuery = true)
     List<RoomEntity> listRoomByRoomTypeOfCity();
-    
+
     RoomEntity findById(int id);
+
     RoomEntity findByName(String name);
 
     @Query(value = "select count(*) from room r  join roomType rt on r.RoomTypeID = rt.RoomTypeID "
@@ -28,5 +29,11 @@ public interface RoomRepository extends CrudRepository<RoomEntity, Integer> {
             + "where rt.hotelID = ?1 and "
             + "((checkInDate between ?2 and ?3) or(checkOutDate between ?2 and ?3))", nativeQuery = true)
     int getNumberOfRoomUsing(int hotelID, LocalDate checkIn, LocalDate checkOut);
+
+    @Query(value = "select * from Room r join roomType rt  on r.roomTypeID = rt.roomTypeID "
+            + "where rt.roomTypeID = ?1  and roomID not in "
+            + "( select roomID from bookingDetails b "
+            + "where (b.CheckInDate between ?2 and ?3) or(b.CheckOutDate between ?2 and ?3))", nativeQuery = true)
+    List<RoomEntity> findRoomByRoomType(int roomTypeID,LocalDate checkInDate,LocalDate checkOutDate);
 
 }

@@ -4,9 +4,12 @@ import entity.CityEntity;
 import entity.HotelEntity;
 import entity.RateEntity;
 import entity.RoomTypeEntity;
+import entity.UsersEntity;
+import java.time.LocalDate;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,13 +47,15 @@ public class BookingController {
     @RequestMapping(value = "/booking/{name}", method = RequestMethod.GET)
     public String showRoomDetailsByHotel(@PathVariable(value = "name") String name, Model model) {
 
-        List<HotelEntity> hotelList = (List<HotelEntity>) hotelRepo.findHotelByName(name); 
+        List<HotelEntity> hotelList = (List<HotelEntity>) hotelRepo.findHotelByName(name);
         CityEntity city = cityRepo.findByNameLike(name);
         model.addAttribute("hotelList", hotelList);
         model.addAttribute("city", city);
-        
+
         RoomTypeEntity roomType = roomTypeRepo.findRoomDetailsByName(name);
         model.addAttribute("roomType", roomType);
         return "viewpage/bookingPage";
     }
+
+  
 }
