@@ -31,20 +31,19 @@ public class ProfileController {
 
     @Autowired
     private CreditCardRepository creditCardRepo;
-    
+
     @Autowired
     private BookingRepository bookingRepo;
 
     @Autowired
     private BookingDetailsRepository bookingDetailsRepo;
-    
+
     @Autowired
     private CommentRepository commentRepo;
-    
-    
+
     @RequestMapping(value = "/account/{id}", method = RequestMethod.GET)
-    public String showProfilePage(Model model, 
-                                 @PathVariable(value = "id") int id) {
+    public String showProfilePage(Model model,
+            @PathVariable(value = "id") int id) {
 
         UsersEntity users = usersRepo.findById(id);
         CreditCardEntity creditCard = creditCardRepo.findById(id);
@@ -86,15 +85,25 @@ public class ProfileController {
     // add new credit card
     @RequestMapping(value = "/add-creditCard/{id}", method = RequestMethod.POST)
     public String createNewCreditCard(@PathVariable(value = "id") int id,
-                                      @Valid @ModelAttribute("creditCards") CreditCardEntity creditCard,
-                                      BindingResult result, HttpSession session) {
+            @Valid @ModelAttribute("creditCards") CreditCardEntity creditCard,
+            BindingResult result, HttpSession session) {
 
         creditCard.setId(id);
         creditCardRepo.save(creditCard);
         //session.setAttribute("creditCard", creditCard);
 
         return "redirect:/";
-   }
+    }
+    
+    //Edit 
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String showEditForm(@PathVariable(value = "id") int id, Model model) {
+        CreditCardEntity creditCard = creditCardRepo.findById(id);
+
+        model.addAttribute("creditCard", creditCard);
+
+        return "editCreditCard";
+    }
 
     //update credit card
     @RequestMapping(value = "/update-creditCard/{id}", method = RequestMethod.POST)
@@ -110,10 +119,9 @@ public class ProfileController {
         creditCardRepo.save(creditCard);
 
         //session.setAttribute("creditCard", creditCard);
-
         return "redirect:/";
     }
-    
+
     //cancel booking
     @RequestMapping(value = "/cancel-booking/{id}", method = RequestMethod.GET)
     public String cancelBooking(@PathVariable(value = "id") int id, HttpSession session) {
