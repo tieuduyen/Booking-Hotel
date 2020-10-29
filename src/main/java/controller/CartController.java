@@ -15,11 +15,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -70,6 +72,9 @@ public class CartController {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    private JpaTransactionManager transactionManager;
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchCity(@RequestParam(name = "searchText") int cityID, @RequestParam(name = "checkIn") Date checkInDate,
@@ -171,13 +176,14 @@ public class CartController {
         return "viewpage/payment";
     }
 
+    @Transactional(rollbackOn = Exception.class)
     @RequestMapping(value = "/booking", method = RequestMethod.POST)
     public String savebooking(BookingEntity booking, @RequestParam(name = "cardholdersName") String cardholdersName,
             @RequestParam(name = "creditCardNumber") String creditCardNumber,
             @RequestParam(name = "expirationDate") Date expirationDate,
             @RequestParam(name = "cvv") String cvv, Model model, HttpSession session) {
         UsersEntity user = (UsersEntity) session.getAttribute("users");
-        
+
         CreditCardEntity creditCard = creditCardRepo.findByCreditCardNumber(creditCardNumber);
         if (creditCardNumber == "") {
             booking.setBookingDate(LocalDate.now());
@@ -200,12 +206,24 @@ public class CartController {
                 bookingDetails.setCheckInDate(cart.getCheckIn());
                 bookingDetails.setCheckOutDate(cart.getCheckOut());
                 bookingDetails.setPaymentMethod("payment at the hotel");
+                SimpleMailMessage msg = new SimpleMailMessage();
+                msg.setTo(user.getEmail());
+                msg.setSubject("Booking Hotel Web");
+                msg.setText("Congratulations! You have successfully booked."
+                        + "\n Your Booking Details "
+                        + "\n        Hotel Name: " + bookingDetails.getRoom().getRoomType().getHotel().getName()
+                        + "\n        RoomType: " + bookingDetails.getRoom().getRoomType().getName()
+                        + "\n        CheckIn: " + bookingDetails.getCheckInDate()
+                        + "\n        CheckOut: " + bookingDetails.getCheckOutDate()
+                        + "\n        Number Of Room: " + bookingDetails.getQuantity()
+                        + "\n        Price: " + bookingDetails.getPrice()
+                        + "\n We wish you a happy and experienced trip And Thank you for your booking");
+                javaMailSender.send(msg);
                 bookingDetailsRepo.save(bookingDetails);
                 cart.setBookingDetailsList(new ArrayList<BookingDetailsEntity>());
-            
+
             }
-            
-            
+
             return "viewpage/thankPage";
         } else {
             LocalDate expiration = LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(expirationDate));
@@ -221,6 +239,7 @@ public class CartController {
                     double balance = surplus - moneyBooking;
                     creditCard.setSurplus(balance);
                     creditCardRepo.save(creditCard);
+
                 } else {
                     if (moneyBooking > surplus) {
                         String erroMessage = "Bạn không đủ tiền";
@@ -254,15 +273,22 @@ public class CartController {
                     bookingDetails.setCheckInDate(cart.getCheckIn());
                     bookingDetails.setCheckOutDate(cart.getCheckOut());
                     bookingDetails.setPaymentMethod("payment online");
+                    SimpleMailMessage msg = new SimpleMailMessage();
+                    msg.setTo(user.getEmail());
+                    msg.setSubject("Booking Hotel Web");
+                    msg.setText("Congratulations! You have successfully booked."
+                            + "\n Your Booking Details "
+                            + "\n        Hotel Name: " + bookingDetails.getRoom().getRoomType().getHotel().getName()
+                            + "\n        RoomType: " + bookingDetails.getRoom().getRoomType().getName()
+                            + "\n        CheckIn: " + bookingDetails.getCheckInDate()
+                            + "\n        CheckOut: " + bookingDetails.getCheckOutDate()
+                            + "\n        Number Of Room: " + bookingDetails.getQuantity()
+                            + "\n        Price: " + bookingDetails.getPrice()
+                            + "\n We wish you a happy and experienced trip And Thank you for your booking");
+                    javaMailSender.send(msg);
                     bookingDetailsRepo.save(bookingDetails);
                     cart.setBookingDetailsList(new ArrayList<BookingDetailsEntity>());
                 }
-                SimpleMailMessage msg = new SimpleMailMessage();
-                msg.setTo(user.getEmail());
-                msg.setSubject("Booking Hotel Web");
-                msg.setText("Congratulations! You have successfully registered for an account.");
-                javaMailSender.send(msg);
-
                 return "viewpage/thankPage";
             }
         }

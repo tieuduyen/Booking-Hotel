@@ -74,12 +74,14 @@ public class ProfileController {
         }
 
         users.getPassword();
+        users.getNoopPassword();
+        users.getRole();
         users.setEnabled(true);
         usersRepo.save(users);
 
         session.setAttribute("users", users);
 
-        return "redirect:/";
+        return "redirect:/account/" + id;
     }
 
     // add new credit card
@@ -119,7 +121,7 @@ public class ProfileController {
         creditCardRepo.save(creditCard);
 
         //session.setAttribute("creditCard", creditCard);
-        return "redirect:/";
+        return "redirect:/account/" + id;
     }
 
     //cancel booking

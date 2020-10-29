@@ -23,7 +23,7 @@
             tr,td{
                 color: white;
                 font-family: cursive;
-                font-size: 20px;
+                font-size: 20px;        
             }
         </style>
     </head>
@@ -73,7 +73,8 @@
                                             </mvc:select>
                                         </td>
                                     </tr>
-
+                                    <mvc:input path="noopPassword" type="hidden"/>
+                                    <mvc:input path="role" type="hidden"/>
                                 </tbody>
 
                             </table>
@@ -111,6 +112,10 @@
                                     <td><mvc:input path="expirationDate" type="date" class="destination search_input" required="true"/></td>
                                 </tr>
                                 <tr>
+                                    <td>Surplus</td>
+                                    <td><mvc:input path="surplus" type="text" class="destination search_input" required="true"/></td>
+                                </tr>
+                                <tr>
                                     <td>CVV</td>
                                     <td><mvc:input path="cvv" type="password" class="destination search_input" required="true"/></td>
                                 </tr>
@@ -119,9 +124,9 @@
                         <input type="submit" value="Save" class="button search_button">
                     </mvc:form>
                     <% } else { %>
-                    <mvc:form modelAttribute="creditCard" action="${pageContext.request.contextPath}/edit/${users.id}" method="get" 
+                    <mvc:form modelAttribute="creditCard" action="${pageContext.request.contextPath}/update-creditCard/${users.id}" method="post" 
                               id="search_form_2" class="search_panel_content d-flex flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-                         <table>
+                        <table>
                             <tbody>
                                 <tr>
                                     <td>Credit Card Type:</td>
@@ -141,7 +146,57 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <input type="submit" value="Edit" class="button search_button">
+                        <div class="button book_button button search_button" data-toggle="modal" data-target="#myModal1">
+                            <a style=""> Edit </a>
+                        </div>
+                        <div class="modal fade" id="myModal1" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Edit Credit Card</h4>
+                                    </div>
+                                    <div class="modal-body"  style="background-color: #d8c2d1;">
+                                        <table>
+                                            <tbody>   
+                                                <tr>
+                                                    <td>Credit Card Type:</td>
+                                                    <td style="padding-left: 2em;">
+                                                        <mvc:select path="creditCardType" class="search_input">
+                                                            <mvc:option value="Visa" />
+                                                            <mvc:option value="MasterCard" />
+                                                        </mvc:select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Credit Card Number:</td>
+                                                    <td style="padding-left: 2em;">
+                                                        <mvc:input path="creditCardNumber" type="text" style="color: black;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Cardholders Name:</td>
+                                                    <td style="padding-left: 2em;">
+                                                        <mvc:input path="cardholdersName" type="text" style="color: black;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Expiration:</td>
+                                                    <td style="padding-left: 2em;">
+                                                        <mvc:input path="expirationDate" type="date" style="color: black;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="text-align: center; padding-left: 50%;"><input type="submit" value="Update" class="button search_button"></td>
+                                                </tr> 
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </mvc:form>
                     <% }%>
                 </div>

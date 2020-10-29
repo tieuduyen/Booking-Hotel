@@ -32,9 +32,9 @@
                                 <mvc:form modelAttribute="user" action="payment" method="post" style="width: 100%;" >
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <label for="name" class="text-black">Customer Name: <span
+                                            <label for="username" class="text-black">Customer Name: <span
                                                     class="text-danger">*</span></label>
-                                                <mvc:input type="text" path="name" required="true" class="form-control" value="${users.username}"/>
+                                                <mvc:input type="text" path="username" required="true" class="form-control" value="${users.username}"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">

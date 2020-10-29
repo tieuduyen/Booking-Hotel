@@ -79,11 +79,12 @@
                         <div class="reviews_container">
                             <!-- Review -->
                             <c:if test="${commentList.size()>0}">
+                     
                                 <c:forEach var="comment" items="${commentList}">
                                     <div class="review">
                                         <div class="review_content">
                                             <div class="review_title_container">
-                                                <div class="review_title">${comment.users.name}</div>
+                                                <div class="review_title">${comment.users.username}</div>
                                                 <div class="review_date">${comment.commentDateFormatted}</div>
                                                 <div class="review_rating">${comment.rate}</div>
                                             </div>
@@ -107,10 +108,10 @@
                         <mvc:form modelAttribute="comment" action="${pageContext.request.contextPath}/comment" method="post" style="padding-left: 10%;">
                             <div class="row">
                                 <div class="col-25">
-                                    <label for="name">Name</label>
+                                    <label for="username">Name</label>
                                 </div>
                                 <div class="col-75">
-                                    <mvc:input type="text"  path="users.name" value="${users.name}" readonly="true"/>
+                                    <mvc:input type="text"  path="users.username" value="${users.username}" readonly="true"/>
                                 </div>
                             </div>
                             <div class="row">

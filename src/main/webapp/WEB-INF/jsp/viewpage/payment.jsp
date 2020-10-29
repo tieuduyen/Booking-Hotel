@@ -75,7 +75,7 @@
                                     <tbody>
                                         <tr>
                                             <td>Customer Name</td>
-                                            <td>${user.name}</td>
+                                            <td>${user.username}</td>
                                         </tr>
                                         <tr>
                                             <td>Phone</td>
