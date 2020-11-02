@@ -20,9 +20,9 @@
                             <div class="social">
                                 <ul class="social_list" style="padding-top: .4em;">
                                     <li class="main_nav_item"><a  style="font-size: 10px;" href="${pageContext.request.contextPath}">trang chủ</a></li>
-                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="about.html">giới thiệu</a></li>
-                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="offers.html">ưu đãi</a></li>
-                                    <li class="main_nav_item"><a  style="font-size: 10px;" href="contact.html">liên hệ</a></a></li>
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" >giới thiệu</a></li>
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" >ưu đãi</a></li>
+                                    <li class="main_nav_item"><a  style="font-size: 10px;" >liên hệ</a></a></li>
                                 </ul>
                             </div>
                             <div class="content_search ml-lg-0 ml-auto">

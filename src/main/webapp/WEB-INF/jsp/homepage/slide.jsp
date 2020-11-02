@@ -26,7 +26,6 @@
                             <div class="home_slider_content_inner" data-animation-in="flipInX" data-animation-out="animate-out fadeOut">
                                 <h1></h1>
                                 <h1>${slide.title}</h1>
-                                <div class="button home_slider_button"><div class="button_bcg"></div><a href="#">explore now<span></span><span></span><span></span></a></div>
                             </div>
                         </div>
                     </div>

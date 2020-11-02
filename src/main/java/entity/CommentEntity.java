@@ -21,8 +21,9 @@ public class CommentEntity {
     private int id;
     
     @Column(name = "CommentDate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "YYYY-MM-DD HH:MI:SS")
     private LocalDate commentDate;
+    
     
     @Column(name = "Rate")
     private Double rate;
@@ -90,7 +91,7 @@ public class CommentEntity {
     }
     
     public String getCommentDateFormatted(){
-        DateTimeFormatter commentDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter commentDateFormat = DateTimeFormatter.ofPattern("hh:mm a' - ' dd/MM/yyyy");
         return commentDateFormat.format(commentDate);
     }
 }

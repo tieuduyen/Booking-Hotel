@@ -202,7 +202,7 @@
                 </div>
 
                 <!-- My Booking -->
-                <div class="search_panel" style="background-color: #000; height: 100%; padding-bottom: 3em;">
+                <div class="search_panel" style="background-color: #d8c2d1;; height: 100%; padding-bottom: 3em;">
                     <form method="post" id="search_form_3" class="search_panel_content d-flex flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
                         <h2>My Booking</h2>
                         <c:if test="${bookingList.size()>0}">
@@ -265,7 +265,7 @@
 
                 </div>
                 <!-- My Comment And Review -->
-                <div class="search_panel" style="background-color: #000; height: 100%; padding-bottom: 3em;">
+                <div class="search_panel" style="background-color: #d8c2d1;; height: 100%; padding-bottom: 3em;">
                     <mvc:form modelAttribute="comment" action="${pageContext.request.contextPath}/view-comment/${users.id}" method="post" 
                               id="search_form_5" class="search_panel_content d-flex flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
                         <h2>My Comment</h2>

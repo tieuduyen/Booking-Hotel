@@ -59,9 +59,9 @@
                             <div class="main_nav_container ml-auto">
                                 <ul class="main_nav_list">
                                     <li class="main_nav_item"><a href="${pageContext.request.contextPath}">trang chủ</a></li>
-                                    <li class="main_nav_item"><a href="about.html">giới thiệu</a></li>
-                                    <li class="main_nav_item"><a href="offers.html">ưu đãi</a></li>
-                                    <li class="main_nav_item"><a href="contact.html">liên hệ</a></li>
+                                    <li class="main_nav_item"><a>giới thiệu</a></li>
+                                    <li class="main_nav_item"><a>ưu đãi</a></li>
+                                    <li class="main_nav_item"><a>liên hệ</a></li>
                                 </ul>
                             </div>
                             <div class="content_search ml-lg-0 ml-auto">
